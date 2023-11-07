@@ -1,6 +1,9 @@
 /client/node_modules
 /client/package-lock.json
 /client/package.json
+/client/tsconfig.json
+
 /server/node_modules
 /server/package-lock.json
 /server/package.json
+/server/tsconfig.json
