@@ -5,13 +5,13 @@ import * as Tone from 'tone';
 // project imports
 import { Visualizer } from '../Visualizers';
 
-const POINTS = 0
-const LINES = 1
-const TRIANGLES = 4
-const TRIANGLE_STRIP = 5
-const TRIANGLE_FAN = 6
-const QUADS = 7
-const QUAD_STRIP = 8
+// const POINTS = 0
+// const LINES = 1
+// const TRIANGLES = 4
+// const TRIANGLE_STRIP = 5
+// const TRIANGLE_FAN = 6
+// const QUADS = 7
+// const QUAD_STRIP = 8
 
 
 export const QCVisualizer = new Visualizer(
@@ -34,15 +34,15 @@ export const QCVisualizer = new Visualizer(
     //p5.noStroke();
 
     const values = analyzer.getValue();
-    p5.beginShape(LINES);  //reset thread
+    p5.beginShape(1);  //reset thread
 
     //console.log("values: ",values,"values.length: ",values.length)
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;
       // const x = p5.map(i, 0, values.length - 1, 0, width);
       // const y = height / 2 + amplitude * height;
-      const r = p5.map(amplitude, -1, 1, 0, 100);
-      const angle = p5.map(i, 0, values.length - 1, 0, 360);
+      const r = p5.map(amplitude, -1, 1, 0, 100+i);
+      const angle = p5.map(i, 0, values.length - 1, 0, 360*2);
       const x = r*Math.cos(angle);
       const y = r*Math.sin(angle);
       p5.vertex(x,y);
