@@ -32,4 +32,4 @@ function Cello({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const CelloInstrument = new Instrument('Cello', Cello);
+export const JinInstrument = new Instrument('Cello', Cello);
