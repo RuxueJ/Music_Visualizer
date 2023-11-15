@@ -7,7 +7,7 @@ import { WaveformVisualizer } from './visualizers/Waveform';
 
 import { JinVisualizer } from './visualizers/RuxueJ';
 
-import { JinInstrument } from './instruments/RuxueJ';
+import { ZhengInstrument } from './instruments/RuxueJ';
 
 import { QCInstrument } from './instruments/qchen1218';
 import { QCVisualizer } from './visualizers/qchen1218';
@@ -21,7 +21,7 @@ export type AppState = Map<string, any>;           // similar to { [id: string]:
  * Start with the default piano instrument.
  * Add your instruments to this list.
  */
-const instruments = List([PianoInstrument, QCInstrument, JinInstrument]);       // similar to Instrument[]
+const instruments = List([PianoInstrument, QCInstrument, ZhengInstrument]);       // similar to Instrument[]
 
 /**
  * Start with the default waveform visualizer.
