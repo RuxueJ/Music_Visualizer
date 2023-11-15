@@ -12,6 +12,10 @@ import { JinInstrument } from './instruments/RuxueJ';
 import { QCInstrument } from './instruments/qchen1218';
 import { QCVisualizer } from './visualizers/qchen1218';
 
+import { Kao_Guitar } from './instruments/Kao_instrument';
+import { Kao_vis } from './visualizers/Kao_visualizer';
+
+
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
  ** ------------------------------------------------------------------------ */
