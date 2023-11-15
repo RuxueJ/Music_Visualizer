@@ -25,14 +25,14 @@ export type AppState = Map<string, any>;           // similar to { [id: string]:
  * Start with the default piano instrument.
  * Add your instruments to this list.
  */
-const instruments = List([PianoInstrument, QCInstrument, JinInstrument]);       // similar to Instrument[]
+const instruments = List([PianoInstrument, QCInstrument, JinInstrument, Kao_Guitar]);       // similar to Instrument[]
 
 /**
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
   // similar to Visualizer[]
-const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer]);    // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer, Kao_vis]);    // similar to Visualizer[]
 
 
 /**

@@ -174,5 +174,5 @@ interface PianoKeyProps {
     );
   }
   
-  export const Kao_Guitar = new Instrument('Piano', Piano);
+  export const Kao_Guitar = new Instrument('Kao Guitar', Piano);
   
