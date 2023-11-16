@@ -13,19 +13,24 @@ import { Instrument, InstrumentProps } from '../Instruments';
  ** ------------------------------------------------------------------------ */
 
 interface PianoKeyProps {
-    note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+    note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B || Guitar notes low to high: E,A,D,G,B,E
     duration?: string;
     synth?: Tone.Synth; // Contains library code for making sound
     minor?: boolean; // True if minor key, false if major key
     octave: number;
     index: number; // octave + index together give a location for the piano key
+    
+
+    stagger: number;
   }
   
   export function PianoKey({
     note,
     synth,
-    minor,
+    //minor,
     index,
+
+    stagger
   }: PianoKeyProps): JSX.Element {
     /**
      * This React component corresponds to either a major or minor key in the piano.
@@ -40,16 +45,16 @@ interface PianoKeyProps {
         onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
         onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
         className={classNames('ba pointer absolute dim', {
-          'bg-black black h3': minor, // minor keys are black
-          'black bg-white h4': !minor, // major keys are white
+          // 'bg-black black h3': minor, // minor keys are black
+          // 'black bg-white h4': !minor, // major keys are white
         })}
         style={{
           // CSS
-          top: 0,
-          left: `${index * 2}rem`,
-          zIndex: minor ? 1 : 0,
-          width: minor ? '1.5rem' : '2rem',
-          marginLeft: minor ? '0.25rem' : 0,
+          top: `${stagger}rem`, //0,
+          left: `${index * 2}rem`, //modified
+          zIndex: 100,
+          width: '8.5rem',
+          marginLeft: '0.25rem',
         }}
       ></div>
     );
@@ -101,20 +106,28 @@ interface PianoKeyProps {
     );
   }
   
-  function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
+  function Electric_Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
     const keys = List([
-      { note: 'C', idx: 0 },
-      { note: 'Db', idx: 0.5 },
-      { note: 'D', idx: 1 },
-      { note: 'Eb', idx: 1.5 },
-      { note: 'E', idx: 2 },
-      { note: 'F', idx: 3 },
-      { note: 'Gb', idx: 3.5 },
-      { note: 'G', idx: 4 },
-      { note: 'Ab', idx: 4.5 },
-      { note: 'A', idx: 5 },
-      { note: 'Bb', idx: 5.5 },
-      { note: 'B', idx: 6 },
+        { note : 'E', idx: 0 },
+        { note : 'A', idx: 1 },
+        { note : 'D', idx: 2 },
+        { note : 'G', idx: 3 },
+        { note : 'B', idx: 4 },
+        { note : 'E', idx: 5 },
+        
+      //Piano
+      // { note: 'C', idx: 0 }, 
+      // { note: 'Db', idx: 0.5 },
+      // { note: 'D', idx: 1 },
+      // { note: 'Eb', idx: 1.5 },
+      // { note: 'E', idx: 2 },
+      // { note: 'F', idx: 3 },
+      // { note: 'Gb', idx: 3.5 },
+      // { note: 'G', idx: 4 },
+      // { note: 'Ab', idx: 4.5 },
+      // { note: 'A', idx: 5 },
+      // { note: 'Bb', idx: 5.5 },
+      // { note: 'B', idx: 6 },
     ]);
   
     const setOscillator = (newType: Tone.ToneOscillatorType) => {
@@ -154,7 +167,10 @@ interface PianoKeyProps {
                   synth={synth}
                   minor={isMinor}
                   octave={octave}
-                  index={(octave - 2) * 7 + key.idx}
+                  index={(octave - 2) * 10 + key.idx} //controls distance between key groups
+
+                  
+                  stagger={((octave / 1000) * 1 + key.idx)} //controls vertical stagger
                 />
               );
             }),
@@ -174,5 +190,5 @@ interface PianoKeyProps {
     );
   }
   
-  export const Kao_Guitar = new Instrument('Kao Guitar', Piano);
+  export const Kao_Guitar = new Instrument('Kao Electric Guitar', Electric_Guitar);
   
