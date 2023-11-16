@@ -5,8 +5,19 @@ import { List, Map } from 'immutable';
 import { PianoInstrument } from './instruments/Piano';
 import { WaveformVisualizer } from './visualizers/Waveform';
 
+import { JinVisualizer } from './visualizers/RuxueJ';
+
+import { ZhengInstrument } from './instruments/RuxueJ';
+
 import { QCInstrument } from './instruments/qchen1218';
 import { QCVisualizer } from './visualizers/qchen1218';
+
+import { Kao_Guitar } from './instruments/Kao_instrument';
+import { Kao_vis } from './visualizers/Kao_visualizer';
+
+import { HoangAnh_Instrument } from "./instruments/htran31";
+import { HoangAnh_Visualizer } from './visualizers/htran31';
+
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
@@ -17,13 +28,14 @@ export type AppState = Map<string, any>;           // similar to { [id: string]:
  * Start with the default piano instrument.
  * Add your instruments to this list.
  */
-const instruments = List([PianoInstrument, QCInstrument]);       // similar to Instrument[]
+const instruments = List([PianoInstrument, QCInstrument, ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
 
 /**
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
-const visualizers = List([WaveformVisualizer, QCVisualizer]);    // similar to Visualizer[]
+  // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer, Kao_vis, HoangAnh_Visualizer]);    // similar to Visualizer[]
 
 
 /**
