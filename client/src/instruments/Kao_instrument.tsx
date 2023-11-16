@@ -20,7 +20,7 @@ interface PianoKeyProps {
     octave: number;
     index: number; // octave + index together give a location for the piano key
     
-
+    string_height: number;
     stagger: number;
   }
   
@@ -30,6 +30,7 @@ interface PianoKeyProps {
     //minor,
     index,
 
+    string_height,
     stagger
   }: PianoKeyProps): JSX.Element {
     /**
@@ -51,10 +52,11 @@ interface PianoKeyProps {
         style={{
           // CSS
           top: `${stagger}rem`, //0,
-          left: `${index * 2}rem`, //modified
+          left: `${index * 0}rem`, //modified
           zIndex: 100,
-          width: '8.5rem',
-          marginLeft: '0.25rem',
+          height: string_height,
+          width: '55.5rem',
+          marginLeft: '0.00rem',
         }}
       ></div>
     );
@@ -64,7 +66,7 @@ interface PianoKeyProps {
   function PianoKeyWithoutJSX({
     note,
     synth,
-    minor,
+    //minor,
     index,
   }: PianoKeyProps): JSX.Element {
     /**
@@ -75,17 +77,17 @@ interface PianoKeyProps {
       'div',
       {
         onMouseDown: () => synth?.triggerAttack(`${note}`),
-        onMouseUp: () => synth?.triggerRelease('+0.25'),
+        onMouseUp: () => synth?.triggerRelease('+0.02'),
         className: classNames('ba pointer absolute dim', {
-          'bg-black black h3': minor,
-          'black bg-white h4': !minor,
+          // 'bg-black black h3': minor,
+          // 'black bg-white h4': !minor,
         }),
         style: {
           top: 0,
           left: `${index * 2}rem`,
-          zIndex: minor ? 1 : 0,
-          width: minor ? '1.5rem' : '2rem',
-          marginLeft: minor ? '0.25rem' : 0,
+          zIndex: 0,
+          width: '2rem',
+          marginLeft: '0.25rem',
         },
       },
       [],
@@ -108,12 +110,12 @@ interface PianoKeyProps {
   
   function Electric_Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
     const keys = List([
-        { note : 'E', idx: 0 },
-        { note : 'A', idx: 1 },
-        { note : 'D', idx: 2 },
-        { note : 'G', idx: 3 },
-        { note : 'B', idx: 4 },
-        { note : 'E', idx: 5 },
+        { note : 'A', idx: 0 }, //E
+        { note : 'G', idx: 2 }, //A
+        { note : 'F', idx: 4 }, //D
+        { note : 'E', idx: 6 }, //G
+        { note : 'D', idx: 8 }, //B
+        { note : 'C', idx: 10 }, //E
         
       //Piano
       // { note: 'C', idx: 0 }, 
@@ -169,8 +171,8 @@ interface PianoKeyProps {
                   octave={octave}
                   index={(octave - 2) * 10 + key.idx} //controls distance between key groups
 
-                  
-                  stagger={((octave / 1000) * 1 + key.idx)} //controls vertical stagger
+                  string_height={(octave -5) * 1 + key.idx /1}
+                  stagger={((octave / 1000) * 20 + key.idx /1.3)} //controls vertical stagger
                 />
               );
             }),
