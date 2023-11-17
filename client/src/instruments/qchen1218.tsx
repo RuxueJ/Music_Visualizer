@@ -7,6 +7,7 @@ import React from 'react';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import { relative } from 'path';
+//import { DispatchAction } from '../Reducer';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Piano.
@@ -27,6 +28,7 @@ export function Drums({
   tom,
   index,
 }: DrumProps): JSX.Element {
+  //let dispatch: React.Dispatch<DispatchAction>;
   /**
    * This React component corresponds to either a major or minor key in the piano.
    * See `PianoKeyWithoutJSX` for the React component without JSX.
@@ -37,11 +39,17 @@ export function Drums({
     // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
     // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
-      onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+      onMouseDown={() => {
+        //dispatch(new DispatchAction('MOUSE_DOWN'))
+        synth?.triggerAttack(`${note}`)
+      }} // Question: what is `onMouseDown`?
+      onMouseUp={() => {
+        //dispatch(new DispatchAction('MOUSE_UP'))
+        synth?.triggerRelease('+0.25')
+    }} // Question: what is `onMouseUp`?
       className={classNames('ba pointer absolute dim', {
-        'bg-gold black h5': tom, // minor keys are black
-        'black bg-white h5': !tom, // major keys are white
+        'bg-gold black h5': !tom, // minor keys are black
+        'black bg-white h5': tom, // major keys are white
       })}
       style={{
         // CSS
@@ -122,17 +130,22 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
             //Tom-Toms A2/B2/C3
             //Crash Cymbal C4/D4
             //Ride Cymbal E4/F4
-                key={"C1"} //react key
-                //note={"C1"}
+                //key={"C1"} //react key
+                note={"C1"}
                 synth={synth}
                 tom={true}
                 octave={2}
                 index={0}
               />
          <Drums    
-            
-            key={"C2"} //react key
-            note={"C2"}
+            note={"D2"}
+            synth={synth}
+            tom={true}
+            octave={2}
+            index={1}
+          />
+         <Drums    
+            note={"F2"}
             synth={synth}
             tom={false}
             octave={2}
@@ -140,13 +153,25 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
           />
 
         <Drums    
-            
-            key={"C2"} //react key
-            note={"C2"}
+            note={"A2"}
+            synth={synth}
+            tom={true}
+            octave={2}
+            index={3}
+          />
+          <Drums    
+            note={"C4"}
             synth={synth}
             tom={false}
             octave={2}
-            index={1}
+            index={4}
+          />
+          <Drums    
+            note={"F4"}
+            synth={synth}
+            tom={false}
+            octave={2}
+            index={5}
           />
 
         {/* {Range(2, 3).map(octave =>
