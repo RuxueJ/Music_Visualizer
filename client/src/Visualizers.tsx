@@ -40,17 +40,12 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
   useEffect(() => {
     Tone.getDestination().volume.value = -5;
     Tone.getDestination().connect(analyzers.waveform);
-    return () => {
-      Tone.getDestination().disconnect(analyzers.waveform);
-    };
-  }, [analyzers.waveform]);
-
-  useEffect(() => {
     Tone.getDestination().connect(analyzers.fft);
     return () => {
+      Tone.getDestination().disconnect(analyzers.waveform);
       Tone.getDestination().disconnect(analyzers.fft);
     };
-  }, [analyzers.fft]);
+  }, [analyzers.waveform,analyzers.fft]);
 
   const setup = (p5: P5, canvasParentRef: Element) => {
     const width = window.innerWidth;
