@@ -21,7 +21,7 @@ import { Visualizer } from '../Visualizers';
 
 export const QCVisualizer = new Visualizer(
   'QCform',
-  (p5: P5, analyzer: Tone.Analyser) => {
+  (p5: P5, analyzers: { waveform: Tone.Analyser; fft: Tone.Analyser }) => {
     //const fft = new p5.FFT();
     const width = window.innerWidth/2.5;
     const height = window.innerHeight/4;
@@ -29,19 +29,16 @@ export const QCVisualizer = new Visualizer(
     //p5.pixelDensity(1);
     //p5.loadPixels();
     //console.log(width,height) //958 418
-    p5.background(0, 0, 0, 255);  //background color
-    //p5.createCanvas(window.innerWidth,window.innerHeight)
+    p5.background(0, 0, 0, 255);  //background color    
     p5.translate(width,height)
     p5.angleMode(p5.DEGREES);
     //p5.strokeWeight(dim * 0.001);  //thread thin
     p5.stroke(255, 255, 255, 255);  //thread color
     p5.noFill();    //fill the color while the thread moves
-    //p5.fill(237, 34, 93);
-    //p5.noStroke();
 
-
-    const values = analyzer.getValue();
-    const fft = analyzer.toSeconds();
+    const values = analyzers.waveform.getValue();
+    const fft = analyzers.fft.getValue();
+    //console.log(fft)
     // console.log("is this fft?: ",fft)
     p5.beginShape();  //reset thread
     
@@ -53,7 +50,7 @@ export const QCVisualizer = new Visualizer(
       //const amplitude = values[x] as number;  
       //let xoff = amplitude;
       // for (let y =0; y < height; y++){
-       
+      
       //   // let index = (x + y* width) *4
       //   // let r = p5.noise(xoff, yoff)*255;
       //   // p5.pixels[index+0] = r;
@@ -77,15 +74,23 @@ export const QCVisualizer = new Visualizer(
       //   p5.fill(0+coff);
       //   coff += 1;
       // }
+      
       const amplitude = values[i] as number;
-      // const x = p5.map(i, 0, values.length - 1, 0, width);
-      // const y = height / 2 + amplitude * height;
-      const r = p5.map(amplitude, -1, 1, 0, 100+i);
-      const angle = p5.map(i, 0, values.length - 1, 0, 360*2);
-      const x = r*Math.cos(angle);
-      const y = r*Math.sin(angle);
-      p5.vertex(x,y);
-      //p5.ellipse(width,height,amplitude*900,amplitude*900)
+      const sampleRate = 44100 - amplitude;
+      //for (let j = 0; j < fft.length; j++) {
+        const frequency = fft[i] as number;
+        //console.log(frequency)
+        const colorValue = p5.map(frequency,0,225,0,255)
+          p5.fill(colorValue, 0, 255-colorValue);
+          // const x = p5.map(i, 0, values.length - 1, 0, width);
+          // const y = height / 2 + amplitude * height;
+          const r = p5.map(amplitude, -1, 1, 0, 100+i);
+          const angle = p5.map(i, 0, values.length - 1, 0, 360*2.5);
+          const x = r*Math.cos(angle);
+          const y = r*Math.sin(angle);
+          p5.vertex(x,y);
+      //}
+        //p5.ellipse(width,height,amplitude*900,amplitude*900)
     }
     //p5.updatePixels();
     p5.endShape();
