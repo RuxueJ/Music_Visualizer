@@ -23,6 +23,8 @@ interface ZhengKeyProps {
   top: number;
 }
 
+
+
 export function ZhengString({
   note,
   synth,
@@ -37,23 +39,23 @@ export function ZhengString({
    * See `PianoKeyWithoutJSX` for the React component without JSX.
    */
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    // Check if the pressed key is the one you want to trigger portamento
-    if (synth && event.key === 'w') {
-      // Trigger portamento or any other action you want
-      synth.portamento = 1; // Example: set portamento time to 0.1 seconds
+  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  //   // Check if the pressed key is the one you want to trigger portamento
+  //   if (synth && event.key === 'w') {
+  //     // Trigger portamento or any other action you want
+  //     synth.portamento = 1; // Example: set portamento time to 0.1 seconds
 
-    }
-  };
+  //   }
+  // };
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    // Check if the released key is the one you want to stop the portamento
-    if (synth && event.key === 'w') {
-      // Stop portamento or perform any other cleanup
-      synth.portamento = 0; // Example: set portamento time back to 0
+  // const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  //   // Check if the released key is the one you want to stop the portamento
+  //   if (synth && event.key === 'w') {
+  //     // Stop portamento or perform any other cleanup
+  //     synth.portamento = 0; // Example: set portamento time back to 0
       
-    }
-  };
+  //   }
+  // };
 
   // const glideBetweenTones = (toneA, interval) => {
   //   synth?.triggerAttackRelease(toneA, '4n'); // Trigger the attack of tone A
@@ -69,7 +71,6 @@ export function ZhengString({
   //   synth.triggerAttack(`${toneA}+${transposition}`);
   // };
 
-
   return (
     // Observations:
     // 1. The JSX refers to the HTML-looking syntax within TypeScript.
@@ -77,13 +78,23 @@ export function ZhengString({
     // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
 
-    
-   
       // onMouseOver={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
      
       // onMouseLeave={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
       
-      onMouseOver={() => synth?.triggerAttackRelease(`${note}`,'8n')} // Q
+      onMouseOver={() => {
+        synth?.triggerAttackRelease(`${note}`,'8n');
+  
+        console.log("frequency is: " + synth?.frequency.value);
+          
+
+        // Connect the synth's output to the meter
+
+ 
+ 
+
+      }
+    }
       // onMouseOver={() => {
       //   if(synth){
       //     synth.portamento = 0.1; // Adjust the portamento time as needed (in seconds)
@@ -108,11 +119,11 @@ export function ZhengString({
         'others': !isG, // other strings are block
       })}
       style={{
-        top: `${top}rem`,
-        left: `${leftLength + index +30}rem`,
+        top: `${top }rem`,
+        left: `${index + 10}rem`,
         margin:"1rem",
         background: isG ? '#008000' : '#000000',
-        width: `${70 - top}rem`,
+        width: `${30 - top}rem`,
         height: ".2rem",
         borderRadius: ".1rem"
       }}>
@@ -131,6 +142,26 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
     { note: 'A', idx: 4 },
 
   ]);
+  // const sampler = new Tone.Sampler({
+  //   urls: {
+  //     "C4": "C4.mp3",
+  //     "D#4": "Ds4.mp3",
+  //     "F#4": "Fs4.mp3",
+  //     "A4": "A4.mp3",
+  //   },
+  //   baseUrl: "https://tonejs.github.io/audio/salamander/",
+  // }).toDestination();
+  
+  // Tone.loaded().then(() => {
+  //   // sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 0.5);
+  //   // sampler.triggerAttackRelease(["C4"], 0.5);
+  //   sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 0.5);
+
+  //   // Wait for 0.5 seconds (500 milliseconds)
+  //   setTimeout(() => {
+  //     sampler.triggerAttackRelease(["C4"], 0.5);
+  //   }, 500);
+  // })
 
   return (
     <div className="pv4">
@@ -139,6 +170,7 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
           keys.map(key => {
             const note = `${key.note}${octave}`;
             const isG = key.note.indexOf('G') === 0;
+          
             return (
               <ZhengString
                 key={note} //react key
@@ -146,21 +178,21 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
                 synth={synth}
                 octave={octave}
                 isG = {isG}
-                index={octave * 5 + key.idx}
-                top={((octave-3) * 5 + key.idx)}
+                index={(((octave-3) * 5 + key.idx)) *0.8}
+                top={(((octave-3) * 5 + key.idx)) *0.8}
                 leftLength={0}
               />
             );
           }),
         )}
         <ZhengString
-        key="C7" // React key for the bottom string
-        note="C7" // Adjust the note for the bottom string
+        key="C8" // React key for the bottom string
+        note="C8" // Adjust the note for the bottom string
         synth={synth}
         octave={7} // Adjust the octave for the bottom string
         isG={false} // Adjust as needed
-        index={7 * 5} // Adjust the index for the bottom string
-        top={(7 - 3) * 5 } // Adjust the top position for the bottom string
+        index={(((7-3) * 5 )) *0.8} // Adjust the index for the bottom string
+        top={(7 - 3) * 5*0.8} // Adjust the top position for the bottom string
         leftLength={0}
       />
       </div>

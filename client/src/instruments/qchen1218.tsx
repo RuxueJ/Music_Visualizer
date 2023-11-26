@@ -123,7 +123,7 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
             //Crash Cymbal C4/D4
             //Ride Cymbal E4/F4
                 key={"C1"} //react key
-                //note={"C1"}
+                note={"C1"}
                 synth={synth}
                 tom={true}
                 octave={2}

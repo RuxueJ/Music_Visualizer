@@ -36,7 +36,7 @@ const instruments = List([PianoInstrument, QCInstrument, ZhengInstrument, Kao_Gu
  */
   // similar to Visualizer[]
 const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer, Kao_vis, HoangAnh_Visualizer]);    // similar to Visualizer[]
-
+// const visualizers = List([ JinVisualizer]); // test fft
 
 /**
  * The default application state contains a list of instruments and a list of visualizers.

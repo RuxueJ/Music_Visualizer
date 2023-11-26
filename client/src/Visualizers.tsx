@@ -5,6 +5,7 @@ import P5 from 'p5';
 import React, { useEffect, useMemo, useCallback } from 'react';
 
 type VisualizerDrawer = (p5: P5, analyzer: Tone.Analyser) => void;
+// type VisualizerDrawer = (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => void;
 
 interface VisualizerContainerProps {
   visualizer: Visualizer;
@@ -23,10 +24,19 @@ export class Visualizer {
 export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
   const { name, draw } = visualizer;
 
-  const analyzer: Tone.Analyser = useMemo(
-    () => new Tone.Analyser('waveform', 256),
-    [],
+  // const analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser} = useMemo(
+  //   () => {
+  //     return {
+  //       waveform:new Tone.Analyser("waveform", 256),
+  //       fft: new Tone.Analyser("fft",1024),
+  //     };
+  //   },[]
+    const analyzer: Tone.Analyser = useMemo(
+      // () => new Tone.Analyser("fft", 2048),
+      () => new Tone.Analyser("waveform", 256),
+      [],
   );
+
 
   const onResize = useCallback((p5: P5) => {
     const width = window.innerWidth;
@@ -37,11 +47,20 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
 
   useEffect(() => {
     Tone.getDestination().volume.value = -5;
+    // Tone.getDestination().connect(analyzers.waveform);
     Tone.getDestination().connect(analyzer);
     return () => {
+      // Tone.getDestination().disconnect(analyzers.waveform);
       Tone.getDestination().disconnect(analyzer);
     };
   }, [analyzer]);
+
+  // useEffect(() => {
+  //   Tone.getDestination().connect(analyzer);
+  //   return () => {
+  //     Tone.getDestination().disconnect(analyzer);
+  //   };
+  // }, [analyzer]);
 
   const setup = (p5: P5, canvasParentRef: Element) => {
     const width = window.innerWidth;
