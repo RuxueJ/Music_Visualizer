@@ -22,6 +22,10 @@
   },
   "include": [
     "src",
+<<<<<<< HEAD
     "node_module/declarations.d.ts"
+=======
+    "node_modules/declarations.d.ts"
+>>>>>>> dd9ef91078d64229150b8f653d16d118d099733d
   ]
 }
