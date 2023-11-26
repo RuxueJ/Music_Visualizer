@@ -55,7 +55,10 @@ export const Kao_vis = new Visualizer(
 
       //p5.vertex(x, y, z);
 
-      p5.ellipse(x,y,radius*2, radius*2);
+      //p5.ellipse(x,y,radius*2, radius*2);
+
+      const animatedRadius = radius + p5.sin(p5.frameCount * 0.05) * 100;
+      p5.ellipse(x, y, animatedRadius * 2, animatedRadius * 2);
     }
     p5.endShape();
   },
