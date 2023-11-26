@@ -22,6 +22,6 @@
   },
   "include": [
     "src",
-    "node_module/declarations.d.ts"
+    "node_modules/declarations.d.ts"
   ]
 }
