@@ -21,7 +21,7 @@ import { Visualizer } from '../Visualizers';
 
 export const QCVisualizer = new Visualizer(
   'QCform',
-  (p5: P5, analyzers: { waveform: Tone.Analyser; fft: Tone.Analyser }) => {
+  (p5: P5, analyzer: Tone.Analyser) => {
     //const fft = new p5.FFT();
     const width = window.innerWidth/2.5;
     const height = window.innerHeight/4;
@@ -36,8 +36,8 @@ export const QCVisualizer = new Visualizer(
     p5.stroke(255, 255, 255, 255);  //thread color
     p5.noFill();    //fill the color while the thread moves
 
-    const values = analyzers.waveform.getValue();
-    const fft = analyzers.fft.getValue();
+    const values = analyzer.getValue();
+    //const fft = analyzers.fft.getValue();
     //console.log(fft)
     // console.log("is this fft?: ",fft)
     p5.beginShape();  //reset thread
@@ -78,10 +78,10 @@ export const QCVisualizer = new Visualizer(
       const amplitude = values[i] as number;
       const sampleRate = 44100 - amplitude;
       //for (let j = 0; j < fft.length; j++) {
-        const frequency = fft[i] as number;
+        //const frequency = fft[i] as number;
         //console.log(frequency)
-        const colorValue = p5.map(frequency,0,225,0,255)
-          p5.fill(colorValue, 0, 255-colorValue);
+        //const colorValue = p5.map(frequency,0,225,0,255)
+          //p5.fill(colorValue, 0, 255-colorValue);
           // const x = p5.map(i, 0, values.length - 1, 0, width);
           // const y = height / 2 + amplitude * height;
           const r = p5.map(amplitude, -1, 1, 0, 100+i);
