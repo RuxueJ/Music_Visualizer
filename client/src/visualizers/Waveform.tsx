@@ -10,7 +10,7 @@ export const WaveformVisualizer = new Visualizer(
   'Waveform',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
-    const height = window.innerHeight/2;
+    const height = window.innerHeight / 2;
     const dim = Math.min(width, height);
 
     p5.background(0, 0, 0, 255);
@@ -20,7 +20,6 @@ export const WaveformVisualizer = new Visualizer(
     p5.noFill();
 
     const values = analyzer.getValue();
-    console.log(values);
     p5.beginShape();
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;
