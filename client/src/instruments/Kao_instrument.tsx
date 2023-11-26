@@ -11,6 +11,8 @@ import E_note from './accsetSounds/electric_guitar_E_.wav';
 import High_E_note from './accsetSounds/electric_guitar_High_E_ .wav';
 import G_note from './accsetSounds/guitar_single_G_.wav';
 
+import backgroundImage from './imageAssets/guitarBody.jpg';
+
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 
@@ -63,7 +65,7 @@ interface GuitarProps {
         style={{
           // CSS
           top: `${2.5+index-(string_height/10)}rem`, //0,
-          left: 0,//`${index * 0}rem`, //modified
+          left:170,//`${index * 0}rem`, //modified
           zIndex: 1,
           height: string_height,
           width: '55.5rem',
@@ -114,7 +116,11 @@ interface GuitarProps {
     // ]) as List<OscillatorType>;
   
     return (
-      <div className="pv4">
+      <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "250px 200px",
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: "0px 0px"
+      }}>
         <div className="relative dib h4 w-100 ml4">
           {keys.map(key=>{
             const newSynth = new Tone.Player(key.note).toDestination();
