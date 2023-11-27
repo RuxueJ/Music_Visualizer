@@ -14,8 +14,7 @@ export const JinVisualizer = new Visualizer(
 
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
-    // console.log(width);
-    // console.log(height);
+  
 
 
     const dim = Math.min(width, height);

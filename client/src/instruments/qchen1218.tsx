@@ -15,7 +15,7 @@ import tom from './accsetSounds/tom_808.wav';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 // import { relative } from 'path';
-//import { DispatchAction } from '../Reducer';
+// import { DispatchAction } from '../Reducer';
 
 // import { useState, useEffect } from 'react';
 
