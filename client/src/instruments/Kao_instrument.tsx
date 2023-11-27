@@ -4,6 +4,15 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
+import A_note from './accsetSounds/electric_guitar_A_.wav';
+import B_note from './accsetSounds/electric_guitar_B_.wav';
+import D_note from './accsetSounds/electric_guitar_D_.wav';
+import E_note from './accsetSounds/electric_guitar_E_.wav';
+import High_E_note from './accsetSounds/electric_guitar_High_E_ .wav';
+import G_note from './accsetSounds/guitar_single_G_.wav';
+
+import backgroundImage from './imageAssets/guitarBody.jpg';
+
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 
@@ -12,87 +21,63 @@ import { Instrument, InstrumentProps } from '../Instruments';
  * Contains implementation of components for Piano.
  ** ------------------------------------------------------------------------ */
 
-interface PianoKeyProps {
+interface GuitarProps {
     note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B || Guitar notes low to high: E,A,D,G,B,E
     duration?: string;
-    synth?: Tone.Synth; // Contains library code for making sound
+    synth?: Tone.Player; // Tone.Synth
     minor?: boolean; // True if minor key, false if major key
-    octave: number;
+    //octave: number;
     index: number; // octave + index together give a location for the piano key
     
-
-    stagger: number;
+    string_height: number;
+    //stagger: number;
   }
   
-  export function PianoKey({
+
+
+
+  
+  export function Guitar({
     note,
     synth,
-    //minor,
+    minor,
     index,
 
-    stagger
-  }: PianoKeyProps): JSX.Element {
-    /**
-     * This React component corresponds to either a major or minor key in the piano.
-     * See `PianoKeyWithoutJSX` for the React component without JSX.
-     */
+    string_height,
+    //stagger,
+  }: GuitarProps): JSX.Element {
     return (
       // Observations:
       // 1. The JSX refers to the HTML-looking syntax within TypeScript.
       // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
       // 3. The curly braces `{` and `}` should remind you of string interpolation.
       <div
-        onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-        onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+        onMouseDown={async () => {
+          await synth?.load(note);
+          synth?.start();
+        }}
+        // Question: what is `onMouseDown`?
+        onMouseUp={() => synth?.stop('+1.25')} // Question: what is `onMouseUp`?
         className={classNames('ba pointer absolute dim', {
-          // 'bg-black black h3': minor, // minor keys are black
-          // 'black bg-white h4': !minor, // major keys are white
+          'bg-black black h5': minor, // minor keys are black
+          'black bg-silver h5': !minor, // major strings are silver
         })}
         style={{
           // CSS
-          top: `${stagger}rem`, //0,
-          left: `${index * 2}rem`, //modified
-          zIndex: 100,
-          width: '8.5rem',
-          marginLeft: '0.25rem',
+          top: `${2.5+index-(string_height/10)}rem`, //0,
+          left:170,//`${index * 0}rem`, //modified
+          zIndex: 1,
+          height: string_height,
+          width: '55.5rem',
+          marginLeft: '0.00rem',
+          borderBottom: '3px solid #000',
+          
         }}
       ></div>
     );
   }
   
-  // eslint-disable-next-line
-  function PianoKeyWithoutJSX({
-    note,
-    synth,
-    minor,
-    index,
-  }: PianoKeyProps): JSX.Element {
-    /**
-     * This React component for pedagogical purposes.
-     * See `PianoKey` for the React component with JSX (JavaScript XML).
-     */
-    return React.createElement(
-      'div',
-      {
-        onMouseDown: () => synth?.triggerAttack(`${note}`),
-        onMouseUp: () => synth?.triggerRelease('+0.25'),
-        className: classNames('ba pointer absolute dim', {
-          'bg-black black h3': minor,
-          'black bg-white h4': !minor,
-        }),
-        style: {
-          top: 0,
-          left: `${index * 2}rem`,
-          zIndex: minor ? 1 : 0,
-          width: minor ? '1.5rem' : '2rem',
-          marginLeft: minor ? '0.25rem' : 0,
-        },
-      },
-      [],
-    );
-  }
-  
-  function PianoType({ title, onClick, active }: any): JSX.Element {
+  function GuitarType({ title, onClick, active }: any): JSX.Element {
     return (
       <div
         onClick={onClick}
@@ -108,26 +93,12 @@ interface PianoKeyProps {
   
   function Electric_Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
     const keys = List([
-        { note : 'E', idx: 0 },
-        { note : 'A', idx: 1 },
-        { note : 'D', idx: 2 },
-        { note : 'G', idx: 3 },
-        { note : 'B', idx: 4 },
-        { note : 'E', idx: 5 },
-        
-      //Piano
-      // { note: 'C', idx: 0 }, 
-      // { note: 'Db', idx: 0.5 },
-      // { note: 'D', idx: 1 },
-      // { note: 'Eb', idx: 1.5 },
-      // { note: 'E', idx: 2 },
-      // { note: 'F', idx: 3 },
-      // { note: 'Gb', idx: 3.5 },
-      // { note: 'G', idx: 4 },
-      // { note: 'Ab', idx: 4.5 },
-      // { note: 'A', idx: 5 },
-      // { note: 'Bb', idx: 5.5 },
-      // { note: 'B', idx: 6 },
+        { note : E_note, idx: 0 },
+        { note : A_note, idx: 1 },
+        { note : D_note, idx: 2 },
+        { note : G_note, idx: 3 },
+        { note : B_note, idx: 4 },
+        { note : High_E_note, idx: 5 },
     ]);
   
     const setOscillator = (newType: Tone.ToneOscillatorType) => {
@@ -140,52 +111,97 @@ interface PianoKeyProps {
       });
     };
   
-    const oscillators: List<OscillatorType> = List([
-      'sine',
-      'sawtooth',
-      'square',
-      'triangle',
-      'fmsine',
-      'fmsawtooth',
-      'fmtriangle',
-      'amsine',
-      'amsawtooth',
-      'amtriangle',
-    ]) as List<OscillatorType>;
+    // const oscillators: List<OscillatorType> = List([
+    //   'sawtooth',
+    // ]) as List<OscillatorType>;
   
     return (
-      <div className="pv4">
+      <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "250px 200px",
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: "0px 0px"
+      }}>
         <div className="relative dib h4 w-100 ml4">
-          {Range(2, 7).map(octave =>
+          {keys.map(key=>{
+            const newSynth = new Tone.Player(key.note).toDestination();
+            return(
+              <Guitar
+                note={key.note}
+                synth={newSynth}
+                index={key.idx}
+                string_height={9-key.idx}
+              />
+            )
+          })}
+          {/* {Range(2, 7).map(octave =>
             keys.map(key => {
               const isMinor = key.note.indexOf('b') !== -1;
               const note = `${key.note}${octave}`;
-              return (
-                <PianoKey
-                  key={note} //react key
-                  note={note}
+              return ( */}
+                {/* <Guitar
+                  // key={note} //react key
+                  note={'E1'}
                   synth={synth}
-                  minor={isMinor}
-                  octave={octave}
-                  index={(octave - 2) * 10 + key.idx} //controls distance between key groups
+                  // minor={isMinor}
+                 // octave={1}
+                  index={0} //controls distance between key groups
 
-                  
-                  stagger={((octave / 1000) * 1 + key.idx)} //controls vertical stagger
+                  string_height={9}
                 />
-              );
+
+                <Guitar
+                  note={'A2'}
+                  synth={synth}
+                  //octave={1}
+                  index={1}
+                  string_height={8}
+                />
+
+                <Guitar
+                  note={'D3'}
+                  synth={synth}
+                  //octave={1}
+                  index={2}
+                  string_height={7}
+                />
+
+                <Guitar
+                  note={'G3'}
+                  synth={synth}
+                  //octave={1}
+                  index={3}
+                  string_height={6}
+                />
+
+                <Guitar
+                  note={'B3'}
+                  synth={synth}
+                  //octave={1}
+                  index={4}
+                  string_height={4}
+                />
+
+                <Guitar
+                  note={'E4'}
+                  synth={synth}
+                  //octave={2}
+                  index={5}
+                  string_height={0.1}
+                />
+              {/* );
             }),
-          )}
+          )} */}
         </div>
-        <div className={'pl4 pt4 flex'}>
+        {/* <div className={'pl4 pt4 flex'}>
           {oscillators.map(o => (
-            <PianoType
+            <GuitarType
               key={o}
               title={o}
               onClick={() => setOscillator(o)}
               active={synth?.oscillator.type === o}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     );
   }

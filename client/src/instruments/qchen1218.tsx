@@ -4,55 +4,68 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
+import clap from './accsetSounds/clap_808.wav';
+import hihat from './accsetSounds/hihat_808.wav';
+import kick from './accsetSounds/kick_808.wav';
+import openhat from './accsetSounds/openhat_808.wav';
+import perc from './accsetSounds/perc_808.wav';
+import snare from './accsetSounds/snare_808.wav';
+import tom from './accsetSounds/tom_808.wav';
+
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
-import { relative } from 'path';
+// import { relative } from 'path';
+//import { DispatchAction } from '../Reducer';
+
+// import { useState, useEffect } from 'react';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Piano.
  ** ------------------------------------------------------------------------ */
 
 interface DrumProps {
-  note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
-  duration?: string;
-  synth?: Tone.Synth; // Contains library code for making sound
-  tom?: boolean; // True if tom, false if cymbal
-  octave: number;
-  index: number; // octave + index together give a location for the piano key
+  audioUrl: string;
+  synth?: Tone.Player;
+  drum?: boolean; 
+  index: number; 
 }
 
 export function Drums({
-  note,
+  audioUrl,
   synth,
-  tom,
+  drum,
   index,
 }: DrumProps): JSX.Element {
-  /**
-   * This React component corresponds to either a major or minor key in the piano.
-   * See `PianoKeyWithoutJSX` for the React component without JSX.
-   */
+  const handleMouseDown = async () => {
+    console.log("loading audio...")
+    // Ensure the player is loaded before starting
+    await synth?.load(audioUrl);
+    synth?.start();
+    console.log("loading audio done.")
+  };
+
+  const handleMouseUp = () => {
+    // Stop the player on mouse up
+    synth?.stop('+0.25');
+  };
+
   return (
-    // Observations:
-    // 1. The JSX refers to the HTML-looking syntax within TypeScript.
-    // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
-    // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
-      onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
       className={classNames('ba pointer absolute dim', {
-        'bg-gold black h5': tom, // minor keys are black
-        'black bg-white h5': !tom, // major keys are white
+        'bg-gold black h5': !drum,
+        'black bg-white h5': drum,
       })}
       style={{
         // CSS
         top: 0,
         left: `${index * 10}rem`,
         zIndex: 1,
-        width:  '9rem',
-        height:  '9rem',
+        width: '9rem',
+        height: '9rem',
         marginLeft: '2rem',
         borderRadius: '50%',
-        
       }}
     ></div>
   );
@@ -73,20 +86,16 @@ function DrumType({ title, onClick, active }: any): JSX.Element {
   );
 }
 
-function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
+
+function DrumKits({ synth, setSynth }: InstrumentProps): JSX.Element {
+  
   const keys = List([
-    { note: 'C', idx: 0 },
-    // { note: 'Db', idx: 0.5 },
-    // { note: 'D', idx: 1 },
-    // { note: 'Eb', idx: 1.5 },
-    // { note: 'E', idx: 2 },
-    // { note: 'F', idx: 3 },
-    // { note: 'Gb', idx: 3.5 },
-    // { note: 'G', idx: 4 },
-    // { note: 'Ab', idx: 4.5 },
-    // { note: 'A', idx: 5 },
-    // { note: 'Bb', idx: 5.5 },
-    // { note: 'B', idx: 6 },
+    { drum: false, idx: 0, audioUrl: clap},
+     { drum: false, idx: 1, audioUrl: hihat},
+     { drum: true, idx: 2, audioUrl: kick},
+     { drum: false, idx: 3, audioUrl: perc},
+     { drum: false, idx: 4, audioUrl: snare},
+     { drum: true, idx: 5, audioUrl: tom},
   ]);
 
   const setOscillator = (newType: Tone.ToneOscillatorType) => {
@@ -100,74 +109,26 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
   };
 
   const oscillators: List<OscillatorType> = List([
-    'sine',
-    'sawtooth',
-    'square',
-    'triangle',
-    'fmsine',
-    'fmsawtooth',
-    'fmtriangle',
-    'amsine',
-    'amsawtooth',
-    'amtriangle',
-  ]) as List<OscillatorType>;
+    'drum',
+  ]) as unknown as List<OscillatorType>;
 
   return (
     <div className="pv4">
       <div className="relative dib h4 w-100 ml4">
-        <Drums    
-            //Bass Drum C1/C2
-            //Snare Drum D2/E2
-            //Hi-Hat closeF2 openG2
-            //Tom-Toms A2/B2/C3
-            //Crash Cymbal C4/D4
-            //Ride Cymbal E4/F4
-                key={"C1"} //react key
-                note={"C1"}
-                synth={synth}
-                tom={true}
-                octave={2}
-                index={0}
-              />
-         <Drums    
-            
-            key={"C2"} //react key
-            note={"C2"}
-            synth={synth}
-            tom={false}
-            octave={2}
-            index={2}
-          />
+        {keys.map(key=>{
+          const newSynth = new Tone.Player(key.audioUrl).toDestination();
+          return(
+            <Drums 
+              key={key.audioUrl}
+              audioUrl={key.audioUrl} 
+              synth={newSynth}
+              drum ={key.drum}
+              index={key.idx}              
+            /> 
+          )
+        })}
+         
 
-        <Drums    
-            
-            key={"C2"} //react key
-            note={"C2"}
-            synth={synth}
-            tom={false}
-            octave={2}
-            index={1}
-          />
-
-        {/* {Range(2, 3).map(octave =>
-          keys.map(key => {
-            const isMinor = key.note.indexOf('b') !== -1;
-            const note = `${key.note}${octave}`;
-            console.log("note is: ",note);
-            console.log("octave is: ",octave);
-            return (
-              <Drums
-                key={note} //react key
-                note={note}
-                synth={synth}
-                tom={isMinor}
-                octave={octave}
-                index={(octave - 2) * 7 + key.idx}
-              />
-              
-            );
-          }),
-        )} */}
       </div>
       <div className={'pl4 pt4 flex'}>
         {oscillators.map(o => (
@@ -183,4 +144,4 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const QCInstrument = new Instrument('QCI', Piano);
+export const QCInstrument = new Instrument('QCI', DrumKits);
