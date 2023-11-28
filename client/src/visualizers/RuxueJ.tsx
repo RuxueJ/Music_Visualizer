@@ -28,11 +28,11 @@ export const JinVisualizer = new Visualizer(
 
     let angle = 0;
     let spacing = 10;
-    // const rgb1 = Math.floor(Math.random() * 265);
-    // const rgb2 = Math.floor(Math.random() * 265);
-    // const rgb3 = Math.floor(Math.random() * 265);
-    // p5.fill(rgb1, rgb2, rgb3);
-    // p5.stroke(rgb1, rgb2, rgb3);
+    const rgb1 = Math.floor(Math.random() * 265);
+    const rgb2 = Math.floor(Math.random() * 265);
+    const rgb3 = Math.floor(Math.random() * 265);
+    p5.fill(rgb1, rgb2, rgb3);
+    p5.stroke(rgb1, rgb2, rgb3);
     // p5.stroke(255);
 
     p5.beginShape();

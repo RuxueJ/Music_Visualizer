@@ -4,13 +4,13 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
-import clap from './accsetSounds/clap_808.wav';
-import hihat from './accsetSounds/hihat_808.wav';
-import kick from './accsetSounds/kick_808.wav';
-import openhat from './accsetSounds/openhat_808.wav';
-import perc from './accsetSounds/perc_808.wav';
-import snare from './accsetSounds/snare_808.wav';
-import tom from './accsetSounds/tom_808.wav';
+import clap from './accsetSounds/Drum/clap_808.wav';
+import hihat from './accsetSounds/Drum/hihat_808.wav';
+import kick from './accsetSounds/Drum/kick_808.wav';
+import openhat from './accsetSounds/Drum/openhat_808.wav';
+import perc from './accsetSounds/Drum/perc_808.wav';
+import snare from './accsetSounds/Drum/snare_808.wav';
+import tom from './accsetSounds/Drum/tom_808.wav';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';

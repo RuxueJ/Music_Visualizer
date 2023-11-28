@@ -4,6 +4,30 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
+
+import string_1 from './accsetSounds/Zheng/string_1.wav';
+import string_2 from './accsetSounds/Zheng/string_2.wav';
+import string_3 from './accsetSounds/Zheng/string_3.wav';
+import string_4 from './accsetSounds/Zheng/string_4.wav';
+import string_5 from './accsetSounds/Zheng/string_5.wav';
+import string_6 from './accsetSounds/Zheng/string_6.wav';
+import string_7 from './accsetSounds/Zheng/string_7.wav';
+import string_8 from './accsetSounds/Zheng/string_8.wav';
+import string_9 from './accsetSounds/Zheng/string_9.wav';
+import string_10 from './accsetSounds/Zheng/string_10.wav';
+import string_11 from './accsetSounds/Zheng/string_11.wav';
+import string_12 from './accsetSounds/Zheng/string_12.wav';
+import string_13 from './accsetSounds/Zheng/string_13.wav';
+import string_14 from './accsetSounds/Zheng/string_14.wav';
+import string_15 from './accsetSounds/Zheng/string_15.wav';
+import string_16 from './accsetSounds/Zheng/string_16.wav';
+import string_17 from './accsetSounds/Zheng/string_17.wav';
+import string_18 from './accsetSounds/Zheng/string_18.wav';
+import string_19 from './accsetSounds/Zheng/string_19.wav';
+import string_20 from './accsetSounds/Zheng/string_20.wav';
+import string_21 from './accsetSounds/Zheng/string_21.wav';
+
+import backgroundImage from './imageAssets/Zheng.jpg';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 
@@ -14,9 +38,7 @@ import { Instrument, InstrumentProps } from '../Instruments';
 interface ZhengKeyProps {
   note: string; // C, D, E, G, A
   duration?: string;
-  synth?: Tone.Synth; // Contains library code for making sound
-  minor?: boolean; // True if minor key, false if major key
-  octave: number;
+  synth?: Tone.Player; // Contains library code for making sound
   index: number; // octave + index together give a location for the piano key
   isG?: boolean;
   leftLength: number;
@@ -83,16 +105,8 @@ export function ZhengString({
       // onMouseLeave={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
       
       onMouseOver={() => {
-        synth?.triggerAttackRelease(`${note}`,'8n');
-  
-        console.log("frequency is: " + synth?.frequency.value);
-          
-
-        // Connect the synth's output to the meter
-
- 
- 
-
+        synth?.load(note);
+        synth?.start();
       }
     }
       // onMouseOver={() => {
@@ -119,7 +133,7 @@ export function ZhengString({
         'others': !isG, // other strings are block
       })}
       style={{
-        top: `${top }rem`,
+        top: `${top}rem`,
         left: `${index + 10}rem`,
         margin:"1rem",
         background: isG ? '#008000' : '#000000',
@@ -135,22 +149,30 @@ export function ZhengString({
 
 function Zheng({ synth }: InstrumentProps): JSX.Element {
   const keys = List([
-    { note: 'C', idx: 0 },
-    { note: 'D', idx: 1 },
-    { note: 'E', idx: 2 },
-    { note: 'G', idx: 3 },
-    { note: 'A', idx: 4 },
+    { note: string_1, idx: 0 },
+    { note: string_2, idx: 1 },
+    { note: string_3, idx: 2 },
+    { note: string_4, idx: 3 },
+    { note: string_5, idx: 4 },
+    { note: string_6, idx: 5 },
+    { note: string_7, idx: 6 },
+    { note: string_8, idx: 7 },
+    { note: string_9, idx: 8 },
+    { note: string_10, idx: 9 },
+    { note: string_11, idx: 10 },
+    { note: string_12, idx: 11},
+    { note: string_13, idx: 12},
+    { note: string_14, idx: 13},
+    { note: string_15, idx: 14 },
+    { note: string_16, idx: 15 },
+    { note: string_17, idx: 16 },
+    { note: string_18, idx: 17 },
+    { note: string_19, idx: 18},
+    { note: string_20, idx: 19},
+    { note: string_21, idx: 20},
 
   ]);
-  // const sampler = new Tone.Sampler({
-  //   urls: {
-  //     "C4": "C4.mp3",
-  //     "D#4": "Ds4.mp3",
-  //     "F#4": "Fs4.mp3",
-  //     "A4": "A4.mp3",
-  //   },
-  //   baseUrl: "https://tonejs.github.io/audio/salamander/",
-  // }).toDestination();
+
   
   // Tone.loaded().then(() => {
   //   // sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 0.5);
@@ -164,37 +186,30 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
   // })
 
   return (
-    <div className="pv4">
+    <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: "center center"
+    }}>
       <div className="relative dib h4 w-100 ml4">
-        {Range(3, 7).map(octave =>
-          keys.map(key => {
-            const note = `${key.note}${octave}`;
-            const isG = key.note.indexOf('G') === 0;
-          
+  
+         {keys.map(key=>{
+            const isG = key.idx % 5 === 2;
+            const newSynth = new Tone.Player(key.note).toDestination();
             return (
               <ZhengString
-                key={note} //react key
-                note={note}
-                synth={synth}
-                octave={octave}
+                key={key.note} //react key
+                note={key.note}
+                synth={newSynth}
                 isG = {isG}
-                index={(((octave-3) * 5 + key.idx)) *0.8}
-                top={(((octave-3) * 5 + key.idx)) *0.8}
+                index={((22 - key.idx)) *0.8}
+                top={((22 - key.idx)) *0.8}
                 leftLength={0}
               />
             );
-          }),
-        )}
-        <ZhengString
-        key="C8" // React key for the bottom string
-        note="C8" // Adjust the note for the bottom string
-        synth={synth}
-        octave={7} // Adjust the octave for the bottom string
-        isG={false} // Adjust as needed
-        index={(((7-3) * 5 )) *0.8} // Adjust the index for the bottom string
-        top={(7 - 3) * 5*0.8} // Adjust the top position for the bottom string
-        leftLength={0}
-      />
+          })
+        }
+      
       </div>
 
     </div>

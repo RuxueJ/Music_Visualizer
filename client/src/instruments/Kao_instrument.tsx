@@ -4,12 +4,12 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
-import A_note from './accsetSounds/electric_guitar_A_.wav';
-import B_note from './accsetSounds/electric_guitar_B_.wav';
-import D_note from './accsetSounds/electric_guitar_D_.wav';
-import E_note from './accsetSounds/electric_guitar_E_.wav';
-import High_E_note from './accsetSounds/electric_guitar_High_E_ .wav';
-import G_note from './accsetSounds/guitar_single_G_.wav';
+import A_note from './accsetSounds/Guitar/electric_guitar_A_.wav';
+import B_note from './accsetSounds/Guitar/electric_guitar_B_.wav';
+import D_note from './accsetSounds/Guitar/electric_guitar_D_.wav';
+import E_note from './accsetSounds/Guitar/electric_guitar_E_.wav';
+import High_E_note from './accsetSounds/Guitar/electric_guitar_High_E_ .wav';
+import G_note from './accsetSounds/Guitar/guitar_single_G_.wav';
 
 import backgroundImage from './imageAssets/guitarBody.jpg';
 
