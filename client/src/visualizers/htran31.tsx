@@ -11,14 +11,16 @@ const randomInt = (max: number) => Math.floor(Math.random() * max) + 1;
 
 export const HoangAnh_Visualizer = new Visualizer(
   'Anh_WallForm',
-  (p5: P5, analyzer: Tone.Analyser) => {
+  // (p5: P5, analyzer: Tone.Analyser) => {
+    (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
     const dim = Math.min(width, height);
     
     p5.strokeWeight(dim * 0.01);
     p5.noFill();
-    const values = analyzer.getValue();
+    // const values = analyzer.getValue();
+    const values = analyzers.waveform.getValue();
     p5.beginShape();
 
     for (let i = 0; i < values.length; i++) {
@@ -46,7 +48,8 @@ export const HoangAnh_Visualizer = new Visualizer(
 
 export const HoangAnh_Visualizer2 = new Visualizer(
   "Anh_NewForm",
-  (p5: P5, analyzer: Tone.Analyser) => {
+  // (p5: P5, analyzer: Tone.Analyser) => {
+  (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
     const dim = Math.min(width, height);
@@ -54,7 +57,8 @@ export const HoangAnh_Visualizer2 = new Visualizer(
     p5.strokeWeight(dim * 0.005);
     p5.noFill();
 
-    const values = analyzer.getValue();
+    // const values = analyzer.getValue();
+    const values = analyzers.waveform.getValue();
     p5.beginShape();
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;

@@ -7,10 +7,10 @@ import * as Tone from 'tone';
 import { Visualizer } from '../Visualizers';
 
 
-export const JinVisualizer = new Visualizer(
+export const Ruxue_FireworksForm = new Visualizer(
   'Ruxue_FireworksForm',
-  // (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
-    (p5: P5, analyzer: Tone.Analyser) => {
+  (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
+    // (p5: P5, analyzer: Tone.Analyser) => {
 
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
@@ -22,7 +22,8 @@ export const JinVisualizer = new Visualizer(
     p5.background(0, 0, 0, 255);
 
     p5.strokeWeight(dim * 0.01);
-    const values = analyzer.getValue();
+    // const values = analyzers.getValue();
+    const values = analyzers.waveform.getValue();
     // const values = analyzers.fft.getValue();
     // console.log("fft:" + values);
 
@@ -83,6 +84,49 @@ export const JinVisualizer = new Visualizer(
       angle += 2 * p5.TWO_PI / values.length * spacing;
 
     }
+
+    p5.endShape();
+  }
+
+);
+
+
+export const Ruxue_FFT = new Visualizer(
+  'Ruxue_FFT',
+  (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
+    // (p5: P5, analyzer: Tone.Analyser) => {
+
+    const width = window.innerWidth;
+    const height = window.innerHeight / 2;
+  
+    const dim = Math.min(width, height);
+
+    p5.background(0, 0, 0, 255);
+
+    p5.strokeWeight(dim * 0.01);
+  
+    const values = analyzers.fft.getValue();
+
+    p5.stroke(255);
+
+    p5.beginShape();
+
+    // const barWidth = width / values.length;
+    // const barWidth = width / 240;
+    const barWidth = width / 120;
+
+   //fft
+    for (let i = 0; i < 120; i++) {
+      const amplitude = values[i] as number;
+      const x = p5.map(i,0,120,0,width);
+   
+      const barHeight = p5.map(amplitude, -100, 0, height, 0); // Adjust mapping based on your needs
+      // p5.rect(i * barWidth, 0, barWidth - 1, barHeight);
+      p5.rect(x,  0, barWidth - 1, barHeight);
+      
+    }
+
+
 
     p5.endShape();
   }

@@ -8,7 +8,8 @@ import { Visualizer } from '../Visualizers';
 
 export const Kao_vis = new Visualizer(
   'Kao_CirclesForm',
-  (p5: P5, analyzer: Tone.Analyser) => {
+  // (p5: P5, analyzer: Tone.Analyser) => {
+    (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     const width = window.innerWidth;
     const height = window.innerHeight/2;
     const depth = 20;
@@ -27,7 +28,8 @@ export const Kao_vis = new Visualizer(
     // p5.stroke(255, 255, 255, 255);
     // p5.noFill();
 
-    const values = analyzer.getValue();
+    // const values = analyzer.getValue();
+    const values = analyzers.waveform.getValue();
     console.log(values);
 
     // // // Set perspective for a 3D view

@@ -186,33 +186,46 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
   // })
 
   return (
-    <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: "center center"
-    }}>
-      <div className="relative dib h4 w-100 ml4">
-  
+    // <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
+    // backgroundSize: "cover",
+    // backgroundRepeat: 'no-repeat',
+    // backgroundPosition: "center center"
+    // }}
+    // <div className="bg-bluish-black"
+    // >
+      // {/* <div className="relative dib h4 w-100 ml4"> */}
+      
+    //   style={{ backgroundImage: `url(${backgroundImage})`,
+    // backgroundSize: "cover",
+    // backgroundRepeat: 'no-repeat',
+    // backgroundPosition: "center center"
+    // }}
+      <div className="ZhengContainer"   >
          {keys.map(key=>{
             const isG = key.idx % 5 === 2;
             const newSynth = new Tone.Player(key.note).toDestination();
+            
             return (
-              <ZhengString
-                key={key.note} //react key
-                note={key.note}
-                synth={newSynth}
-                isG = {isG}
-                index={((22 - key.idx)) *0.8}
-                top={((22 - key.idx)) *0.8}
-                leftLength={0}
-              />
-            );
+            <div className = "Zheng-string">
+             
+                <ZhengString
+                  key={key.note} //react key
+                  note={key.note}
+                  synth={newSynth}
+                  isG = {isG}
+                  index={((22 - key.idx)) *0.8}
+                  top={((22 - key.idx)) *0.8}
+                  leftLength={0}
+                />
+            
+            </div>
+              );
           })
         }
       
       </div>
 
-    </div>
+    // </div>
   );
 }
 

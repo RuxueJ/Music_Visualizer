@@ -21,7 +21,8 @@ import { Visualizer } from '../Visualizers';
 
 export const QCVisualizer = new Visualizer(
   'Qin_FlowerForm',
-  (p5: P5, analyzer: Tone.Analyser) => {
+  // (p5: P5, analyzer: Tone.Analyser) => {
+    (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     //const fft = new p5.FFT();
     const width = window.innerWidth/2.5;
     const height = window.innerHeight/4;
@@ -36,7 +37,8 @@ export const QCVisualizer = new Visualizer(
     p5.stroke(255, 255, 255, 255);  //thread color
     p5.noFill();    //fill the color while the thread moves
 
-    const values = analyzer.getValue();
+    // const values = analyzer.getValue();
+    const values = analyzers.waveform.getValue();
     //const fft = analyzers.fft.getValue();
     //console.log(fft)
     // console.log("is this fft?: ",fft)
