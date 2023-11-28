@@ -69,7 +69,7 @@ export function MainPage({ state, dispatch }: PanelProps): JSX.Element {
 
   return (
     <div
-      className="fixed top-0 left-0 h-100 w-100 bg-blue" //modified
+      className="fixed top-0 left-0 h-100 w-100" 
       onClick={() => Tone.start()}
     >
       <SideNav state={state} dispatch={dispatch} />
@@ -92,12 +92,20 @@ export function MainPage({ state, dispatch }: PanelProps): JSX.Element {
  ** ------------------------------------- */
 
 function ShowWelcomePanel(): JSX.Element {
+  // add background image
+  const backgroundImage = require('./img/homepage_bg.jpg'); 
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
+
   return (
     <div
       className="absolute right-0 bottom-0 top-0 flex flex-column items-center justify-center"
-      style={{ left: '16rem' }}
+      style={{ left: '16rem', ...backgroundStyle,}}
     >
-      <div className="mw6 lh-copy mb4">
+      <div className="mw6 lh-copy mb4 white">
         <Music32 />
         <div className="f3 fw7 mb2">Welcome to the case study.</div>
         <div className="f4 mb3">

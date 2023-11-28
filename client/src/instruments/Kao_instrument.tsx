@@ -206,5 +206,5 @@ interface GuitarProps {
     );
   }
   
-  export const Kao_Guitar = new Instrument('Kao Electric Guitar', Electric_Guitar);
+  export const Kao_Guitar = new Instrument('Kao_Guitar', Electric_Guitar);
   

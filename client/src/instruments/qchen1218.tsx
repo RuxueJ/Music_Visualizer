@@ -144,4 +144,4 @@ function DrumKits({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const QCInstrument = new Instrument('QCI', DrumKits);
+export const QCInstrument = new Instrument('Qin_Drum', DrumKits);

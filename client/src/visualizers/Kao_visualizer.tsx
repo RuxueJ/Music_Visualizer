@@ -7,7 +7,7 @@ import { Visualizer } from '../Visualizers';
 
 
 export const Kao_vis = new Visualizer(
-  'kao_visual',
+  'Kao_CirclesForm',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight/2;

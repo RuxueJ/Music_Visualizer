@@ -17,6 +17,7 @@ import { Kao_vis } from './visualizers/Kao_visualizer';
 
 import { HoangAnh_Instrument } from "./instruments/htran31";
 import { HoangAnh_Visualizer } from './visualizers/htran31';
+import { HoangAnh_Visualizer2 } from './visualizers/htran31';
 
 
 /** ------------------------------------------------------------------------ **
@@ -35,7 +36,7 @@ const instruments = List([PianoInstrument, QCInstrument, ZhengInstrument, Kao_Gu
  * Add your visualizers to this list.
  */
   // similar to Visualizer[]
-const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer, Kao_vis, HoangAnh_Visualizer]);    // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer, QCVisualizer, JinVisualizer, Kao_vis, HoangAnh_Visualizer, HoangAnh_Visualizer2]);    // similar to Visualizer[]
 // const visualizers = List([ JinVisualizer]); // test fft
 
 /**

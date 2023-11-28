@@ -17,17 +17,20 @@ export function Xylophone(props: InstrumentProps) {
           type: "fatsquare1",
         },
         envelope: {
-          attack: 0.005,
-          decay: 0.2,
+          attack: 0.0001,
+          decay: 0.9,
           sustain: 0.4,
-          release: 1.4,
+          release: 5.4,
         },
       }).toDestination();
     });
   }, [setSynth]);
 
   return (
-    <div className="bg-bluish-black">
+    <div 
+    className="bg-bluish-black"
+    
+    >
       <div className="xylophone">
         {notes.map((note) => (
           <div
@@ -42,4 +45,4 @@ export function Xylophone(props: InstrumentProps) {
   );
 }
 
-export const HoangAnh_Instrument = new Instrument('HoangAnh_Xylophone', Xylophone); 
+export const HoangAnh_Instrument = new Instrument('Anh_Xylophone', Xylophone); 

@@ -36,7 +36,9 @@ type DispatchActionType =
   | 'SET_SONGS'
   | 'PLAY_SONG'
   | 'STOP_SONG'
-  | 'SET_LOCATION';
+  | 'SET_LOCATION'
+  | 'START_RECORDING'
+  | 'STOP_RECORDING';
 
 export class DispatchAction {
   readonly type: DispatchActionType;
@@ -45,6 +47,14 @@ export class DispatchAction {
   constructor(type: DispatchActionType, args?: DispatchArgs) {
     this.type = type;
     this.args = fromJS(args) as Map<string, any>;
+  }
+
+  static startRecording() {
+    return new DispatchAction('START_RECORDING');
+  }
+
+  static stopRecording() {
+    return new DispatchAction('STOP_RECORDING');
   }
 }
 
@@ -101,6 +111,15 @@ export function appReducer(state: AppState, action: DispatchAction): AppState {
         return state
           .set('instrument', instrument)
           .set('visualizer', visualizer);
+      }
+      case 'START_RECORDING': {
+        // Add more logic for starting recording...
+        return state.set('isRecording', true);
+      }
+  
+      case 'STOP_RECORDING': {
+        // Add more logic for stopping recording...
+        return state.set('isRecording', false);
       }
       default:
         console.error(`type unknown: ${type}\n`, args.toJS());

@@ -216,5 +216,5 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const ZhengInstrument = new Instrument('Zheng', Zheng);
+export const ZhengInstrument = new Instrument('Ruxue_Zheng', Zheng);
 

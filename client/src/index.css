@@ -89,3 +89,74 @@ html, body, #root {
   from {transform:rotate(0deg);}
   to {transform:rotate(360deg);}
 }
+
+.xylophone {
+  width: 80%;
+  margin: 0 auto;
+  height: 40vh;
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+}
+
+.xylophone-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.xylophone-note:hover {
+  opacity: 0.7;
+}
+
+.xylophone-note:nth-child(1) {
+  background: red;
+}
+
+.xylophone-note:nth-child(2) {
+  margin: 15px 10px;
+  background: darkorange;
+}
+
+.xylophone-note:nth-child(3) {
+  margin: 20px 10px;
+  background: rgb(255, 242, 0);
+}
+
+.xylophone-note:nth-child(4) {
+  margin: 25px 10px;
+  background: green;
+}
+
+.xylophone-note:nth-child(5) {
+  margin: 30px 10px;
+  background: blue;
+}
+
+.xylophone-note:nth-child(6) {
+  background: purple;
+  margin: 35px 10px;
+}
+
+.xylophone-note:nth-child(7) {
+  background: mediumvioletred;
+  margin: 40px 10px;
+}
+
+.xylophone-note:nth-child(8) {
+  background: red;
+  margin: 45px 10px;
+}
+
+.xylophone-note:nth-child(9) {
+  background: orange;
+  margin: 50px 10px;
+}
+
+.xylophone-note:nth-child(10) {
+  background: rgb(255, 242, 0);
+  margin: 60px 10px;
+}

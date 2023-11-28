@@ -8,7 +8,7 @@ import { Visualizer } from '../Visualizers';
 
 
 export const JinVisualizer = new Visualizer(
-  'RuxueJ',
+  'Ruxue_FireworksForm',
   // (p5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     (p5: P5, analyzer: Tone.Analyser) => {
 

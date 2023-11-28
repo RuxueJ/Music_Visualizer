@@ -23,6 +23,12 @@ export class Visualizer {
 
 export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
   const { name, draw } = visualizer;
+  const backgroundImage = require('./img/visualizer_bg.jpg'); 
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
 
   // const analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser} = useMemo(
   //   () => {
@@ -69,7 +75,7 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
   };
 
   return (
-    <div className={'bg-black absolute bottom-0 right-0 left-0 h-50'}>
+    <div className={'bg-black absolute bottom-0 right-0 left-0 h-50'} style={backgroundStyle}>
       <div className={'z-1 absolute left-0 top-0 pa4 white f5'}>{name}</div>
       <Sketch
         setup={setup}

@@ -20,7 +20,7 @@ import { Visualizer } from '../Visualizers';
  let zoff = 0;
 
 export const QCVisualizer = new Visualizer(
-  'QCform',
+  'Qin_FlowerForm',
   (p5: P5, analyzer: Tone.Analyser) => {
     //const fft = new p5.FFT();
     const width = window.innerWidth/2.5;

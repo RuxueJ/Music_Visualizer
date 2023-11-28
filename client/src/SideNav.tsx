@@ -1,7 +1,7 @@
 // 3rd party library imports
 import classNames from 'classnames';
 import { List } from 'immutable';
-import React from 'react';
+import React,  { useEffect }  from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import {
   RadioButton20,
@@ -14,7 +14,7 @@ import { DispatchAction } from './Reducer';
 import { AppState } from './State';
 import { Instrument } from './Instruments';
 import { Visualizer } from './Visualizers';
-
+import backgroundImage from './img/homepage_bg.jpg'; 
 
 /** ------------------------------------------------------------------------ **
  * SideNav component
@@ -53,22 +53,62 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
    * |-----------------|
   */
 
+  // Clock Nav
+  const [currentTime, setCurrentTime] = React.useState<string>('');
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;  // Convert to 12-hour format
+
+      const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+      setCurrentTime(timeString);
+    };
+    updateClock();
+    const intervalId = setInterval(updateClock, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+
+  // Record Nav
+  const [isRecording, setIsRecording] = React.useState<boolean>(false);
+  const startRecording = () => {
+    dispatch(DispatchAction.startRecording());
+    setIsRecording(true);
+  };
+  const stopRecording = () => {
+    dispatch(DispatchAction.stopRecording());
+    setIsRecording(false);
+  };
+
+
   return (
     <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
-      
-      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">  
-        Team 9 App 
+      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray" style={{ color: 'green' }}>
+        Music App by Team 009
       </div>
-
+      <ClockNav currentTime={currentTime} />
+      <div className="pa3">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="w-100 pa2 ba b--light-gray"
+          onChange={(e) => console.log('Search term:', e.target.value)}
+        />
+      </div>
       <div className="flex-auto">
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
+        <RecordNav startRecording={startRecording} stopRecording={stopRecording} isRecording={isRecording} />
       </div>
     </div>
   );
 }
-
 
 /** ------------------------------------------------------------------------ **
  * SideNav Sub-Components
@@ -159,8 +199,13 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   const songs: List<any> = state.get('songs', List());
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`, 
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
   return (
-    <Section title="Playlist">
+    <Section title="Playlists">
       {songs.map(song => (
         <div
           key={song.get('id')}
@@ -181,6 +226,37 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
 /** ------------------------------------------------------------------------ **
  * Auxilliary components
  ** ------------------------------------------------------------------------ */
+
+// Clock Function
+function ClockNav({ currentTime }: { currentTime: string }): JSX.Element {
+  return (
+    <div className="f6 flex items-center black justify-center pa3">
+      <div className="dim" style={{ fontSize: '1.5rem' }}>{currentTime}</div>
+    </div>
+  );
+}
+
+// Record Function
+type RecordNavProps = {
+  startRecording: () => void;
+  stopRecording: () => void;
+  isRecording: boolean;
+};
+
+export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
+  return (
+    <Section title="Record">
+    <div>
+      <button onClick={startRecording} disabled={isRecording}>
+        Start Recording
+      </button>
+      <button onClick={stopRecording} disabled={!isRecording}>
+        Stop Recording
+      </button>
+    </div>
+    </Section>
+  );
+}
 
 /** ------------------------------------- **
  * Radio Button
