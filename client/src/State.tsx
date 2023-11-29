@@ -19,7 +19,7 @@ import { HoangAnh_Instrument } from "./instruments/htran31";
 import { HoangAnh_Visualizer } from './visualizers/htran31';
 import { HoangAnh_Visualizer2 } from './visualizers/htran31';
 
-import {GuitarInstrument} from "./instruments/mkim797";
+
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
