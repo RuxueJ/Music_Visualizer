@@ -31,7 +31,7 @@ export type AppState = Map<string, any>;           // similar to { [id: string]:
  * Add your instruments to this list.
  */
 <<<<<<< HEAD
-const instruments = List([PianoInstrument,GuitarInstrument, QCInstrument,ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
+const instruments = List([PianoInstrument, QCInstrument,ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
 =======
 const instruments = List([PianoInstrument, QCInstrument,ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
 >>>>>>> 95d475d73745ccaa84a4191a1589dc385d3b2deb
