@@ -34,7 +34,7 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
     () => {
       return {
         waveform:new Tone.Analyser("waveform", 256),
-        fft: new Tone.Analyser("fft",512),
+        fft: new Tone.Analyser("fft",1024),
       };
     },[]
     // const analyzer: Tone.Analyser = useMemo(

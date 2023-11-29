@@ -161,14 +161,44 @@ html, body, #root {
   margin: 60px 10px;
 }
 
-.ZhengContainer{
- 
-    background-image: url('./instruments/imageAssets/Zheng.jpg');
-    background-size: cover; /* or 'contain' depending on your preference */
+.Zheng{
+/* background-image: url('./instruments/imageAssets/Zheng.jpg'); */
+    /* background-size: cover;  */
+    background-color:rgb(196, 107, 24);
+    /* width: 90%; */
+    /* height: 300px;  */
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 0.45em;
     width: 80%;
     margin: 0 auto;
-    height: 50vh;
-    display: grid;
-    grid-template-columns: repeat(1, auto);
+    height: 40vh;
+  }
+ 
+  .zheng_string:hover{
+    animation: vibrate 0.5s;
+    animation-iteration-count: infinite;
+  }
   
-}
+  @keyframes vibrate {
+    10%, 90% {
+      transform-origin: 0 0;
+      transform: matrix(1, -.008, 0, 1, 0, 0);
+    }
+    
+    20%, 80% {
+      transform-origin: 0 0;
+      transform: matrix(1, .006, 0, 1, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform-origin: 0 0;
+      transform: matrix(1, -.004, 0, 1, 0, 0);
+    }
+  
+    40%, 60% {
+      transform-origin: 0 0;
+      transform: matrix(1, .002, 0, 1, 0, 0);
+    }
+  }  
+  

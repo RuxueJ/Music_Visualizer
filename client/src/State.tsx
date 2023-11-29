@@ -19,7 +19,7 @@ import { HoangAnh_Instrument } from "./instruments/htran31";
 import { HoangAnh_Visualizer } from './visualizers/htran31';
 import { HoangAnh_Visualizer2 } from './visualizers/htran31';
 
-// import {GuitarInstrument} from "./instruments/mkim797";
+import {GuitarInstrument} from "./instruments/mkim797";
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
@@ -30,14 +30,13 @@ export type AppState = Map<string, any>;           // similar to { [id: string]:
  * Start with the default piano instrument.
  * Add your instruments to this list.
  */
-const instruments = List([PianoInstrument, QCInstrument, GuitarInstrument,ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
+const instruments = List([PianoInstrument,GuitarInstrument, QCInstrument,ZhengInstrument, Kao_Guitar, HoangAnh_Instrument]);       // similar to Instrument[]
 /**
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
   // similar to Visualizer[]
 const visualizers = List([WaveformVisualizer, QCVisualizer, Ruxue_FireworksForm, Ruxue_FFT, Kao_vis, HoangAnh_Visualizer, HoangAnh_Visualizer2]);    // similar to Visualizer[]
-// const visualizers = List([ JinVisualizer]); // test fft
 
 /**
  * The default application state contains a list of instruments and a list of visualizers.

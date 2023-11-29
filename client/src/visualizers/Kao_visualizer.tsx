@@ -30,7 +30,7 @@ export const Kao_vis = new Visualizer(
 
     // const values = analyzer.getValue();
     const values = analyzers.waveform.getValue();
-    console.log(values);
+    // console.log(values);
 
     // // // Set perspective for a 3D view
     // p5.perspective();

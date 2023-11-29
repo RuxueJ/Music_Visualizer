@@ -3,6 +3,7 @@ import * as Tone from 'tone';
 import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
+import { useEffect } from "react";
 
 
 import string_1 from './accsetSounds/Zheng/string_1.wav';
@@ -27,7 +28,7 @@ import string_19 from './accsetSounds/Zheng/string_19.wav';
 import string_20 from './accsetSounds/Zheng/string_20.wav';
 import string_21 from './accsetSounds/Zheng/string_21.wav';
 
-import backgroundImage from './imageAssets/Zheng.jpg';
+// import backgroundImage from './imageAssets/Zheng.jpg';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 
@@ -39,21 +40,21 @@ interface ZhengKeyProps {
   note: string; // C, D, E, G, A
   duration?: string;
   synth?: Tone.Player; // Contains library code for making sound
-  index: number; // octave + index together give a location for the piano key
+  // synth?: Tone.Synth;
+  index: number; // highest is 1, lowest is 21
   isG?: boolean;
-  leftLength: number;
-  top: number;
 }
 
+interface BridgeProps{
+  position:number;
+}
 
 
 export function ZhengString({
   note,
   synth,
-  index, // from top to bottom
-  isG,
-  leftLength,
-  top
+  index, 
+  isG
 
 }: ZhengKeyProps): JSX.Element {
   /**
@@ -61,37 +62,6 @@ export function ZhengString({
    * See `PianoKeyWithoutJSX` for the React component without JSX.
    */
 
-  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //   // Check if the pressed key is the one you want to trigger portamento
-  //   if (synth && event.key === 'w') {
-  //     // Trigger portamento or any other action you want
-  //     synth.portamento = 1; // Example: set portamento time to 0.1 seconds
-
-  //   }
-  // };
-
-  // const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //   // Check if the released key is the one you want to stop the portamento
-  //   if (synth && event.key === 'w') {
-  //     // Stop portamento or perform any other cleanup
-  //     synth.portamento = 0; // Example: set portamento time back to 0
-      
-  //   }
-  // };
-
-  // const glideBetweenTones = (toneA, interval) => {
-  //   synth?.triggerAttackRelease(toneA, '4n'); // Trigger the attack of tone A
-
-  //   // Calculate the transposition based on the interval
-  //   const transposition = interval === 'half' ? 1 : 2; // Adjust the interval as needed
-
-  //   // Set the transpose property to glide up by the specified interval
-  //   if(synth){
-  //     synth.transpose = transposition;
-
-  //   // Trigger the attack of the transposed tone
-  //   synth.triggerAttack(`${toneA}+${transposition}`);
-  // };
 
   return (
     // Observations:
@@ -99,52 +69,51 @@ export function ZhengString({
     // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
     // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
-
-      // onMouseOver={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-     
-      // onMouseLeave={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
       
       onMouseOver={() => {
         synth?.load(note);
         synth?.start();
       }
     }
-      // onMouseOver={() => {
-      //   if(synth){
-      //     synth.portamento = 0.1; // Adjust the portamento time as needed (in seconds)
-      //   }
-
-      //   // Trigger the glide from C3 to C4
-      //   synth?.triggerAttackRelease('C3', '8n'); // Attack 'C3' and release after a half note
-      //   synth?.triggerAttackRelease('C4', '8n', '8n');
-      // }
-      
-      // onMouseOver={() => {
-      //   synth?.triggerAttackRelease(`${note}`,'8n');
-      //   if(synth){
-      //     synth.portamento = 1;}
-
-      //   synth?.triggerAttackRelease(`${note}+1`,'8n');
-        
-      // }
-      // }
-      className={classNames('ba pointer absolute dim', {
+     
+      className={classNames("zheng_string", {
         'G': isG, // G string is Green
         'others': !isG, // other strings are block
       })}
       style={{
-        top: `${top}rem`,
-        left: `${index + 10}rem`,
-        margin:"1rem",
+
         background: isG ? '#008000' : '#000000',
-        width: `${30 - top}rem`,
-        height: ".2rem",
-        borderRadius: ".1rem"
+        width: '100%',
+        height: ".3rem",
+        borderRadius: ".1rem",
+        marginTop:'10px',
+        marginBottom:'10px',
+        position: 'relative',
+        display: 'flex',
+
+        alignItems: 'center',
+        justifyContent: 'center'
+  
       }}>
+      <Bridge position={index}></Bridge>
+      
     </div>
   );
 }
 
+export function Bridge({position}: BridgeProps):JSX.Element{
+  // console.log('Rendering Bridge with position:', position.valueOf());
+  return(
+    <div 
+    className = "node" 
+    style = {{marginLeft:`${20-2*position.valueOf()}rem`,
+              width: '1rem', 
+              height: '1rem', 
+              borderRadius: '50%',
+              backgroundColor:'rgb(101, 67, 33)'}}>
+    </div>
+  )
+}
 
 
 function Zheng({ synth }: InstrumentProps): JSX.Element {
@@ -170,62 +139,33 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
     { note: string_19, idx: 18},
     { note: string_20, idx: 19},
     { note: string_21, idx: 20},
-
+ 
   ]);
 
   
-  // Tone.loaded().then(() => {
-  //   // sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 0.5);
-  //   // sampler.triggerAttackRelease(["C4"], 0.5);
-  //   sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 0.5);
-
-  //   // Wait for 0.5 seconds (500 milliseconds)
-  //   setTimeout(() => {
-  //     sampler.triggerAttackRelease(["C4"], 0.5);
-  //   }, 500);
-  // })
-
   return (
-    // <div className="pv4" style={{ backgroundImage: `url(${backgroundImage})`,
-    // backgroundSize: "cover",
-    // backgroundRepeat: 'no-repeat',
-    // backgroundPosition: "center center"
-    // }}
-    // <div className="bg-bluish-black"
-    // >
-      // {/* <div className="relative dib h4 w-100 ml4"> */}
-      
-    //   style={{ backgroundImage: `url(${backgroundImage})`,
-    // backgroundSize: "cover",
-    // backgroundRepeat: 'no-repeat',
-    // backgroundPosition: "center center"
-    // }}
-      <div className="ZhengContainer"   >
+    <div className="pv4">
+      <div className="Zheng">
          {keys.map(key=>{
             const isG = key.idx % 5 === 2;
             const newSynth = new Tone.Player(key.note).toDestination();
-            
             return (
-            <div className = "Zheng-string">
-             
-                <ZhengString
+
+             <ZhengString
                   key={key.note} //react key
                   note={key.note}
                   synth={newSynth}
                   isG = {isG}
-                  index={((22 - key.idx)) *0.8}
-                  top={((22 - key.idx)) *0.8}
-                  leftLength={0}
+                  index={key.idx+1}
                 />
-            
-            </div>
+           
               );
           })
         }
       
       </div>
 
-    // </div>
+    </div>
   );
 }
 
