@@ -204,6 +204,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
+  let check = "testing"
   return (
     <Section title="Playlists">
       {songs.map(song => (
@@ -214,9 +215,14 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
             dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
           }
         >
+          {/* <div>
+            {song.get('instrument')}
+          </div> */}
           <Music20 className="mr1" />
           {song.get('songTitle')}
+          
         </div>
+        
       ))}
     </Section>
   );
