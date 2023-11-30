@@ -1,7 +1,7 @@
 // 3rd party library imports
 import classNames from 'classnames';
 import { List } from 'immutable';
-import React,  { useEffect }  from 'react';
+import React,  { useEffect, useState }  from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import {
   RadioButton20,
@@ -74,16 +74,16 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   }, []);
 
 
-  // Record Nav
-  const [isRecording, setIsRecording] = React.useState<boolean>(false);
-  const startRecording = () => {
-    dispatch(DispatchAction.startRecording());
-    setIsRecording(true);
-  };
-  const stopRecording = () => {
-    dispatch(DispatchAction.stopRecording());
-    setIsRecording(false);
-  };
+  // // Record Nav
+  // const [isRecording, setIsRecording] = React.useState<boolean>(false);
+  // const startRecording = () => {
+  //   dispatch(DispatchAction.startRecording());
+  //   setIsRecording(true);
+  // };
+  // const stopRecording = () => {
+  //   dispatch(DispatchAction.stopRecording());
+  //   setIsRecording(false);
+  // };
 
 
   return (
@@ -104,7 +104,6 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
-        <RecordNav startRecording={startRecording} stopRecording={stopRecording} isRecording={isRecording} />
       </div>
     </div>
   );
@@ -183,6 +182,16 @@ function VisualizersNav({ state }: SideNavProps): JSX.Element {
   );
 }
 
+interface Song {
+  id: number;
+  song_title: string;
+  notes: string;
+  image_link: string; 
+  author: string; 
+  genre: string;
+	public_time: string;
+}
+
 function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   /** 
    * 
@@ -199,12 +208,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   const songs: List<any> = state.get('songs', List());
-  const backgroundStyle = {
-    backgroundImage: `url(${backgroundImage})`, 
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
-  let check = "testing"
+  const [hoveredSong, setHoveredSong] = useState<Song | null>(null);
   return (
     <Section title="Playlists">
       {songs.map(song => (
@@ -212,17 +216,25 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
           onClick={() =>
-            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
+            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id')
+            , song_title: song.get('song_title'), image_link: song.get('image_link'), author: song.get('author'), genre: song.get('genre'), public_time: song.get('public_time')
+           }))
           }
+          onMouseEnter={() => setHoveredSong(song)}
+          onMouseLeave={() => setHoveredSong(null)}
+          style={{ position: 'relative' }}
         >
-          {/* <div>
-            {song.get('instrument')}
-          </div> */}
           <Music20 className="mr1" />
-          {song.get('songTitle')}
+          {song.get('song_title')}
+          {hoveredSong === song && (
+             <div className="tooltip" style={{ position: 'absolute', right: '0', top: '0' , background: "blue"}}>{song.get('song_title')}
+              <div>{`Genre: ${song.get('genre')}`}</div>
+              <div>{`Publish Time: ${song.get('public_time')}`}</div>
+              <div>{`Author: ${ song.get('author')}`}</div>
+            </div>
+          )}
           
         </div>
-        
       ))}
     </Section>
   );
@@ -242,27 +254,27 @@ function ClockNav({ currentTime }: { currentTime: string }): JSX.Element {
   );
 }
 
-// Record Function
-type RecordNavProps = {
-  startRecording: () => void;
-  stopRecording: () => void;
-  isRecording: boolean;
-};
+// // Record Function
+// type RecordNavProps = {
+//   startRecording: () => void;
+//   stopRecording: () => void;
+//   isRecording: boolean;
+// };
 
-export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
-  return (
-    <Section title="Record">
-    <div>
-      <button onClick={startRecording} disabled={isRecording}>
-        Start Recording
-      </button>
-      <button onClick={stopRecording} disabled={!isRecording}>
-        Stop Recording
-      </button>
-    </div>
-    </Section>
-  );
-}
+// export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
+//   return (
+//     <Section title="Record">
+//     <div>
+//       <button onClick={startRecording} disabled={isRecording}>
+//         Start Recording
+//       </button>
+//       <button onClick={stopRecording} disabled={!isRecording}>
+//         Stop Recording
+//       </button>
+//     </div>
+//     </Section>
+//   );
+// }
 
 /** ------------------------------------- **
  * Radio Button
