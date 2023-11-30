@@ -161,6 +161,11 @@ html, body, #root {
   margin: 60px 10px;
 }
 
+
+.pv4{
+  box-sizing: border-box;
+}
+
 .Zheng{
 /* background-image: url('./instruments/imageAssets/Zheng.jpg'); */
     /* background-size: cover;  */
@@ -173,13 +178,23 @@ html, body, #root {
     width: 80%;
     margin: 0 auto;
     height: 40vh;
+    /* height: 100%; */
+    box-sizing: border-box;
+    overflow: hidden;
   }
  
+  .Zheng > * {
+    box-sizing: border-box;
+  }
+
   .zheng_string:hover{
     animation: vibrate 0.5s;
     animation-iteration-count: infinite;
   }
   
+  .bg-bluish-black{
+    box-sizing: border-box;
+  }
   @keyframes vibrate {
     10%, 90% {
       transform-origin: 0 0;

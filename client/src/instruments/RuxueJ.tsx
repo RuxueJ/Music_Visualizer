@@ -85,6 +85,7 @@ export function ZhengString({
         background: isG ? '#008000' : '#000000',
         width: '100%',
         height: ".3rem",
+        // height: "auto",
         borderRadius: ".1rem",
         marginTop:'10px',
         marginBottom:'10px',
@@ -144,7 +145,7 @@ function Zheng({ synth }: InstrumentProps): JSX.Element {
 
   
   return (
-    <div className="pv4">
+    <div className="bg-bluish-black">
       <div className="Zheng">
          {keys.map(key=>{
             const isG = key.idx % 5 === 2;
