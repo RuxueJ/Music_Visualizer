@@ -74,16 +74,16 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   }, []);
 
 
-  // Record Nav
-  const [isRecording, setIsRecording] = React.useState<boolean>(false);
-  const startRecording = () => {
-    dispatch(DispatchAction.startRecording());
-    setIsRecording(true);
-  };
-  const stopRecording = () => {
-    dispatch(DispatchAction.stopRecording());
-    setIsRecording(false);
-  };
+  // // Record Nav
+  // const [isRecording, setIsRecording] = React.useState<boolean>(false);
+  // const startRecording = () => {
+  //   dispatch(DispatchAction.startRecording());
+  //   setIsRecording(true);
+  // };
+  // const stopRecording = () => {
+  //   dispatch(DispatchAction.stopRecording());
+  //   setIsRecording(false);
+  // };
 
 
   return (
@@ -104,7 +104,6 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
-        <RecordNav startRecording={startRecording} stopRecording={stopRecording} isRecording={isRecording} />
       </div>
     </div>
   );
@@ -255,27 +254,27 @@ function ClockNav({ currentTime }: { currentTime: string }): JSX.Element {
   );
 }
 
-// Record Function
-type RecordNavProps = {
-  startRecording: () => void;
-  stopRecording: () => void;
-  isRecording: boolean;
-};
+// // Record Function
+// type RecordNavProps = {
+//   startRecording: () => void;
+//   stopRecording: () => void;
+//   isRecording: boolean;
+// };
 
-export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
-  return (
-    <Section title="Record">
-    <div>
-      <button onClick={startRecording} disabled={isRecording}>
-        Start Recording
-      </button>
-      <button onClick={stopRecording} disabled={!isRecording}>
-        Stop Recording
-      </button>
-    </div>
-    </Section>
-  );
-}
+// export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
+//   return (
+//     <Section title="Record">
+//     <div>
+//       <button onClick={startRecording} disabled={isRecording}>
+//         Start Recording
+//       </button>
+//       <button onClick={stopRecording} disabled={!isRecording}>
+//         Stop Recording
+//       </button>
+//     </div>
+//     </Section>
+//   );
+// }
 
 /** ------------------------------------- **
  * Radio Button
