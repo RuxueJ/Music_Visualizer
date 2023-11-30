@@ -13,4 +13,4 @@ INSERT INTO songs (id, song_title, notes, instrument, image_link, author, genre,
 VALUES 
 (1, 'Ode to Joy (Dubstep Remix)', 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4 D4', 'piano', './image/id_1.PNG', 'N/A', 'Remix', 'N/A'),
 (2, 'some note', 'D5 E4 E4 D5 D4', 'piano', './image/id_1.PNG', 'sample', 'testing', 'test'),
-(3, 'some note', 'C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5 G5 G5 F5 F5 E5 E5 D5 G5 G5 F5 F5 E5 E5 D5 C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5', 'piano', './image/id_1.PNG', 'sample', 'testing', 'test');
+(3, 'Twinkle Little Star', 'C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5 G5 G5 F5 F5 E5 E5 D5 G5 G5 F5 F5 E5 E5 D5 C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5', 'piano', './image/id_1.PNG', 'sample', 'testing', 'test');
