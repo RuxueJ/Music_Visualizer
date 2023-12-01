@@ -85,6 +85,12 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   //   setIsRecording(false);
   // };
 
+  const backgroundImage = require('./img/cat.gif'); 
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
 
   return (
     <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
@@ -92,6 +98,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
         Music App by Team 009
       </div>
       <ClockNav currentTime={currentTime} />
+      
       <div className="pa3">
         <input
           type="text"
@@ -100,10 +107,12 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
           onChange={(e) => console.log('Search term:', e.target.value)}
         />
       </div>
+
       <div className="flex-auto">
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
+        <div className={'bg-black absolute bottom-0 right-0 left-0 h-20'} style={backgroundStyle}></div>
       </div>
     </div>
   );
@@ -216,24 +225,31 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
           onClick={() =>
-            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id')
-            , song_title: song.get('song_title'), image_link: song.get('image_link'), author: song.get('author'), genre: song.get('genre'), public_time: song.get('public_time')
-           }))
-          }
+            dispatch(new DispatchAction('PLAY_SONG', 
+            { 
+            id: song.get('id'), 
+            song_title: song.get('song_title'), 
+            image_link: song.get('image_link'), 
+            author: song.get('author'), 
+            genre: song.get('genre'), 
+            public_time: song.get('public_time')
+            }
+            ))}
           onMouseEnter={() => setHoveredSong(song)}
           onMouseLeave={() => setHoveredSong(null)}
           style={{ position: 'relative' }}
         >
+        
           <Music20 className="mr1" />
-          {song.get('song_title')}
-          {hoveredSong === song && (
-             <div className="tooltip" style={{ position: 'absolute', right: '0', top: '0' , background: "blue"}}>{song.get('song_title')}
+          {hoveredSong === song ? (
+            <div className="h3" style={{ background: "white" }}>
               <div>{`Genre: ${song.get('genre')}`}</div>
               <div>{`Publish Time: ${song.get('public_time')}`}</div>
-              <div>{`Author: ${ song.get('author')}`}</div>
+              <div>{`Author: ${song.get('author')}`}</div>
             </div>
-          )}
-          
+            ) : (
+              <div>{song.get('songTitle')}</div>
+            )}
         </div>
       ))}
     </Section>
@@ -260,7 +276,6 @@ function ClockNav({ currentTime }: { currentTime: string }): JSX.Element {
 //   stopRecording: () => void;
 //   isRecording: boolean;
 // };
-
 // export function RecordNav({ startRecording, stopRecording, isRecording }: RecordNavProps): JSX.Element {
 //   return (
 //     <Section title="Record">
