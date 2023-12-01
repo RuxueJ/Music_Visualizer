@@ -167,53 +167,111 @@ html, body, #root {
 }
 
 .Zheng{
-/* background-image: url('./instruments/imageAssets/Zheng.jpg'); */
-    /* background-size: cover;  */
-    background-color:rgb(196, 107, 24);
-    /* width: 90%; */
-    /* height: 300px;  */
+
+    background-color: #d2b48c;
     display: flex;
-    flex-direction: column-reverse;
-    margin: 0.45em;
+    /* flex-direction: column-reverse; */
+    flex-direction: row;
     width: 80%;
     margin: 0 auto;
-    height: 40vh;
-    /* height: 100%; */
-    box-sizing: border-box;
-    overflow: hidden;
-  }
- 
-  .Zheng > * {
-    box-sizing: border-box;
+    height: 40vh;;
+    align-items: center; 
+    justify-content: space-between; 
   }
 
-  .zheng_string:hover{
-    animation: vibrate 0.5s;
+.stringsContainer{
+  flex:8;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+
+
+}
+
+.neck{
+  width: 20px;
+  height: 100%;
+  background-color: rgb(118, 71, 7);
+  min-height: 50px;
+  box-sizing: border-box;
+}
+.head{
+  flex:1;
+  height: 100%;
+  min-height: 50px;
+
+}
+  .stringContainer{
+  flex:1;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* display: flex; */
+}
+
+.string{
+  margin:auto;
+  height:50%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.fixed-end {
+  position: absolute;
+  top: 0;
+  width: 1px; /* Width of the fixed ends */
+  height: 100%;
+  background-color: #333; /* Color of the fixed ends */
+}
+
+.fixed-end.left {
+  left: 0;
+}
+
+.fixed-end.right {
+  right: 0;
+  width: 10px;
+  height:4px;
+  margin:aut0
+}
+
+.rightString:hover{
+    animation: vibrate 0.5s ease-in-out;
     animation-iteration-count: infinite;
+    color:red;
+ }
+
+ .head{
+
+  background-image: url('instruments/imageAssets/bamboo.jpg');
+  /* You can also use other background properties */
+  background-size: cover;
+  background-position: center;
+ }
+
+
+
+ @keyframes vibrate {
+  10%, 90% {
+    transform-origin: 0 0;
+    transform: matrix(1, -.008, 0, 1, 0, 0);
   }
   
-  .bg-bluish-black{
-    box-sizing: border-box;
+  20%, 80% {
+    transform-origin: 0 0;
+    transform: matrix(1, .006, 0, 1, 0, 0);
   }
-  @keyframes vibrate {
-    10%, 90% {
-      transform-origin: 0 0;
-      transform: matrix(1, -.008, 0, 1, 0, 0);
-    }
-    
-    20%, 80% {
-      transform-origin: 0 0;
-      transform: matrix(1, .006, 0, 1, 0, 0);
-    }
-  
-    30%, 50%, 70% {
-      transform-origin: 0 0;
-      transform: matrix(1, -.004, 0, 1, 0, 0);
-    }
-  
-    40%, 60% {
-      transform-origin: 0 0;
-      transform: matrix(1, .002, 0, 1, 0, 0);
-    }
-  }  
-  
+
+  30%, 50%, 70% {
+    transform-origin: 0 0;
+    transform: matrix(1, -.004, 0, 1, 0, 0);
+  }
+
+  40%, 60% {
+    transform-origin: 0 0;
+    transform: matrix(1, .002, 0, 1, 0, 0);
+  }
+} 

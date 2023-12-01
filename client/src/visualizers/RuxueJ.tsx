@@ -12,6 +12,8 @@ export const Ruxue_FireworksForm = new Visualizer(
   (P5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     // (P5: P5, analyzer: Tone.Analyser) => {
 
+    const tones = ['C4', 'D4', 'E4'];
+
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
   
@@ -20,6 +22,9 @@ export const Ruxue_FireworksForm = new Visualizer(
     P5.background(0, 0, 0, 255);
 
     P5.strokeWeight(dim * 0.01);
+
+    tones.forEach((tone, index) => {
+
 
     const values = analyzers.waveform.getValue();
    
@@ -55,6 +60,7 @@ export const Ruxue_FireworksForm = new Visualizer(
     }
 
     P5.endShape();
+  });
   }
 
 );
@@ -135,6 +141,7 @@ export const Ruxue_FFT = new Visualizer(
     P5.strokeWeight(dim * 0.01);
 
     const values = analyzers.fft.getValue();
+    // console.log(values);
 
     P5.beginShape();
 
