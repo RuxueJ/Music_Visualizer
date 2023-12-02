@@ -7,6 +7,7 @@ import {
   RadioButton20,
   RadioButtonChecked20,
   Music20,
+  BorderFull16,
 } from '@carbon/icons-react';
 
 // project imports
@@ -93,8 +94,8 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   };
 
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
-      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray" style={{ color: 'green' }}>
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column" style={{ color: '#083170', backgroundColor: '#F5F5F5'}} >
+      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray" style={{ color: 'green', fontFamily: 'MV Boli' }} >
         Music App by Team 009
       </div>
       <ClockNav currentTime={currentTime} />
@@ -139,9 +140,11 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   const instruments: List<Instrument> = state.get('instruments');
   const activeInstrument = state.get('instrument')?.name;
   const location = useLocation();
-
+  
   return (
-    <Section title="Instruments">
+    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
+    <Section title="Instruments" >
+
       {instruments.map(i => (
         <RadioButton
           key={i.name}
@@ -152,6 +155,8 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
         />
       ))}
     </Section>
+
+    </div>
   );
 }
 
@@ -174,6 +179,7 @@ function VisualizersNav({ state }: SideNavProps): JSX.Element {
   const location = useLocation();
 
   return (
+    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
     <Section title="Visualizers">
       {visualizers.map(v => (
         <RadioButton
@@ -188,6 +194,8 @@ function VisualizersNav({ state }: SideNavProps): JSX.Element {
         />
       ))}
     </Section>
+
+    </div>
   );
 }
 
@@ -219,40 +227,46 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
   const [hoveredSong, setHoveredSong] = useState<Song | null>(null);
   return (
+    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
     <Section title="Playlists">
+
       {songs.map(song => (
         <div
+          
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
           onClick={() =>
             dispatch(new DispatchAction('PLAY_SONG', 
             { 
             id: song.get('id'), 
-            song_title: song.get('song_title'), 
-            image_link: song.get('image_link'), 
+            song_title: song.get('titleSong'), 
+            image_link: song.get('imageLink'), 
             author: song.get('author'), 
             genre: song.get('genre'), 
-            public_time: song.get('public_time')
+            public_time: song.get('releaseDate')
             }
             ))}
           onMouseEnter={() => setHoveredSong(song)}
           onMouseLeave={() => setHoveredSong(null)}
-          style={{ position: 'relative' }}
+          style={{ position: 'relative' ,color: 'black', fontFamily:'MV Boli', fontWeight: 'bolder'}}
+          
         >
         
           <Music20 className="mr1" />
           {hoveredSong === song ? (
-            <div className="h3" style={{ background: "white" }}>
+            <div className="h3" style={{ background: "white", color:'purple' }}>
+              <div>{`Song: ${song.get('titleSong')}`}</div>
               <div>{`Genre: ${song.get('genre')}`}</div>
-              <div>{`Publish Time: ${song.get('public_time')}`}</div>
               <div>{`Author: ${song.get('author')}`}</div>
+              <div>{`Publish Time: ${song.get('releaseDate')}`}</div>
             </div>
             ) : (
-              <div>{song.get('songTitle')}</div>
+              <div>{song.get('titleSong')}</div>
             )}
         </div>
       ))}
     </Section>
+    </div>
   );
 }
 
