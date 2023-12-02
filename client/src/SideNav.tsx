@@ -226,46 +226,52 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
 
   const songs: List<any> = state.get('songs', List());
   const [hoveredSong, setHoveredSong] = useState<Song | null>(null);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  
+
   return (
     <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
-    <Section title="Playlists">
-
-      {songs.map(song => (
-        <div
-          
-          key={song.get('id')}
-          className="f6 pointer underline flex items-center no-underline i dim"
-          onClick={() =>
-            dispatch(new DispatchAction('PLAY_SONG', 
-            { 
-            id: song.get('id'), 
-            song_title: song.get('titleSong'), 
-            image_link: song.get('imageLink'), 
-            author: song.get('author'), 
-            genre: song.get('genre'), 
-            public_time: song.get('releaseDate')
-            }
-            ))}
-          onMouseEnter={() => setHoveredSong(song)}
-          onMouseLeave={() => setHoveredSong(null)}
-          style={{ position: 'relative' ,color: 'black', fontFamily:'MV Boli', fontWeight: 'bolder'}}
-          
-        >
-        
-          <Music20 className="mr1" />
-          {hoveredSong === song ? (
-            <div className="h3" style={{ background: "white", color:'purple' }}>
-              <div>{`Song: ${song.get('titleSong')}`}</div>
-              <div>{`Genre: ${song.get('genre')}`}</div>
-              <div>{`Author: ${song.get('author')}`}</div>
-              <div>{`Publish Time: ${song.get('releaseDate')}`}</div>
-            </div>
-            ) : (
-              <div>{song.get('titleSong')}</div>
-            )}
+      <Section title="Playlists">
+      <div>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-100 pa2 ba b--light-gray"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-      ))}
-    </Section>
+        {songs
+          .filter((song) => song.get('titleSong').toLowerCase().includes(searchTerm.toLowerCase()) )
+          .map(song => (
+          <div
+            key={song.get('id')}
+            className="f6 pointer underline flex items-center no-underline i dim"
+            onClick={() =>
+              dispatch(new DispatchAction('PLAY_SONG', 
+              { id: song.get('id')}
+              ))}
+            onMouseEnter={() => setHoveredSong(song)}
+            onMouseLeave={() => setHoveredSong(null)}
+            style={{ position: 'relative' ,color: 'black', fontFamily:'MV Boli', fontWeight: 'bolder'}}
+            
+          >
+          
+            <Music20 className="mr1" />
+            {hoveredSong === song ? (
+              <div className="h3" style={{ background: "white", color:'purple' }}>
+                <div>{`Song: ${song.get('titleSong')}`}</div>
+                <div>{`Genre: ${song.get('genre')}`}</div>
+                <div>{`Author: ${song.get('author')}`}</div>
+                <div>{`Publish Time: ${song.get('releaseDate')}`}</div>
+              </div>
+              ) : (
+                <div>{song.get('titleSong')}</div>
+              )}
+          </div>
+        ))}
+      </Section>
     </div>
   );
 }
