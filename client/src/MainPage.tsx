@@ -132,8 +132,8 @@ function InstrumentAndVisualizerPanel({ state, dispatch }: PanelProps): JSX.Elem
       className="absolute right-0 bottom-0 top-0 flex flex-column"
       style={{ left: '16rem' }}
     >
-      <InstrumentPanel state={state} dispatch={dispatch} />
       <VisualizerPanel state={state} dispatch={dispatch} />
+      <InstrumentPanel state={state} dispatch={dispatch} />
     </div>
   );
 }
