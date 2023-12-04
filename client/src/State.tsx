@@ -21,6 +21,9 @@ import { HoangAnh_Visualizer2 } from './visualizers/htran31';
 
 
 
+
+
+
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
  ** ------------------------------------------------------------------------ */
@@ -36,7 +39,7 @@ const instruments = List([PianoInstrument, QCInstrument,ZhengInstrument, Kao_Gui
  * Add your visualizers to this list.
  */
   // similar to Visualizer[]
-const visualizers = List([WaveformVisualizer, QCVisualizer, Ruxue_FireworksForm, Ruxue_FFT, Kao_vis, HoangAnh_Visualizer, HoangAnh_Visualizer2]);    // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer,QCVisualizer, Ruxue_FireworksForm, Ruxue_FFT, Kao_vis, HoangAnh_Visualizer, HoangAnh_Visualizer2]);    // similar to Visualizer[]
 
 /**
  * The default application state contains a list of instruments and a list of visualizers.

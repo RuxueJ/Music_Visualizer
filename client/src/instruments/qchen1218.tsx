@@ -4,13 +4,14 @@ import classNames from 'classnames';
 import { List, Range } from 'immutable';
 import React from 'react';
 
-import clap from './accsetSounds/Drum/clap_808.wav';
-import hihat from './accsetSounds/Drum/hihat_808.wav';
-import kick from './accsetSounds/Drum/kick_808.wav';
 import openhat from './accsetSounds/Drum/openhat_808.wav';
-import perc from './accsetSounds/Drum/perc_808.wav';
-import snare from './accsetSounds/Drum/snare_808.wav';
-import tom from './accsetSounds/Drum/tom_808.wav';
+import crash_cymbal from './accsetSounds/Drum/crash_cymbal.wav';
+import snare_drum from './accsetSounds/Drum/snare_drum.wav';
+import high_tom from './accsetSounds/Drum/high_tom.wav';
+import bass_drum from './accsetSounds/Drum/bass_drum.wav';
+import mid_tom from './accsetSounds/Drum/mid_tom.wav';
+import ride_cymbal from './accsetSounds/Drum/ride_cymbal.wav';
+import low_tom from './accsetSounds/Drum/low_tom.wav';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
@@ -27,14 +28,20 @@ interface DrumProps {
   audioUrl: string;
   synth?: Tone.Player;
   drum?: boolean; 
-  index: number; 
+  top: number;
+  left: number; 
+  radius: number; 
+  borderRadius: number;
 }
 
 export function Drums({
   audioUrl,
   synth,
   drum,
-  index,
+  top,
+  left,
+  radius,
+  borderRadius
 }: DrumProps): JSX.Element {
   const handleMouseDown = async () => {
     console.log("loading audio...")
@@ -59,13 +66,11 @@ export function Drums({
       })}
       style={{
         // CSS
-        top: 0,
-        left: `${index * 10}rem`,
-        zIndex: 1,
-        width: '9rem',
-        height: '9rem',
-        marginLeft: '2rem',
-        borderRadius: '50%',
+        top: `${top}rem`,
+        left: `${left}rem`,
+        width: `${radius}rem`,
+        height: `${radius}rem`,
+        borderRadius: `${borderRadius}%`,
       }}
     ></div>
   );
@@ -90,12 +95,19 @@ function DrumType({ title, onClick, active }: any): JSX.Element {
 function DrumKits({ synth, setSynth }: InstrumentProps): JSX.Element {
   
   const keys = List([
-    { drum: false, idx: 0, audioUrl: clap},
-     { drum: false, idx: 1, audioUrl: hihat},
-     { drum: true, idx: 2, audioUrl: kick},
-     { drum: false, idx: 3, audioUrl: perc},
-     { drum: false, idx: 4, audioUrl: snare},
-     { drum: true, idx: 5, audioUrl: tom},
+    { drum: false, audioUrl: openhat, radius: 5, left: 2, top: 4, borderRadius: 50  }, //hiHat
+    { drum: false, audioUrl: crash_cymbal, radius: 6, left: 4, top: -1, borderRadius: 50  }, //crash cymabl
+    { drum: true, audioUrl: snare_drum, radius: 6, left: 7, top: 5, borderRadius: 50  }, //snare Drum
+    { drum: true, audioUrl: high_tom, radius: 4.5, left: 8.5, top: 1, borderRadius: 50  }, //high tom
+    { drum: true, audioUrl: bass_drum, radius: 11, left: 16, top: 0, borderRadius: 50  }, //bass drum
+    { drum: true, audioUrl: mid_tom, radius: 6, left: 29, top: 1, borderRadius: 50  }, //mid tom
+    { drum: false, audioUrl: ride_cymbal, radius: 8, left: 35, top: -1, borderRadius: 50  }, //ride cymbal
+    { drum: true, audioUrl: low_tom, radius: 7, left: 32, top:6, borderRadius: 50  }, //low tom
+    //  { drum: false, idx: 1, audioUrl: hihat},
+    //  { drum: true, idx: 2, audioUrl: kick},
+    //  { drum: false, idx: 3, audioUrl: perc},
+    //  { drum: false, idx: 4, audioUrl: snare},
+    //  { drum: true, idx: 5, audioUrl: tom},
   ]);
 
   const setOscillator = (newType: Tone.ToneOscillatorType) => {
@@ -123,7 +135,10 @@ function DrumKits({ synth, setSynth }: InstrumentProps): JSX.Element {
               audioUrl={key.audioUrl} 
               synth={newSynth}
               drum ={key.drum}
-              index={key.idx}              
+              radius={key.radius} 
+              borderRadius={key.borderRadius}        
+              left={key.left} 
+              top={key.top}      
             /> 
           )
         })}

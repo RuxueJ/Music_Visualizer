@@ -12,6 +12,8 @@ export const Ruxue_FireworksForm = new Visualizer(
   (P5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
     // (P5: P5, analyzer: Tone.Analyser) => {
 
+    const tones = ['C4', 'D4', 'E4'];
+
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
   
@@ -20,6 +22,9 @@ export const Ruxue_FireworksForm = new Visualizer(
     P5.background(0, 0, 0, 255);
 
     P5.strokeWeight(dim * 0.01);
+
+    tones.forEach((tone, index) => {
+
 
     const values = analyzers.waveform.getValue();
    
@@ -55,71 +60,120 @@ export const Ruxue_FireworksForm = new Visualizer(
     }
 
     P5.endShape();
+  });
   }
 
 );
 
 
+// export const Ruxue_FFT = new Visualizer(
+//   'Ruxue_FFT',
+//   (P5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
+
+
+//     const width = window.innerWidth;
+//     const height = window.innerHeight / 2;
+  
+//     const dim = Math.min(width, height);
+
+//     // P5.background(0, 0, 0, 255);
+
+//     P5.strokeWeight(dim * 0.01);
+  
+//     const values = analyzers.fft.getValue();
+
+  
+
+//     P5.beginShape();
+
+  
+//     const barWidth = width / values.length;
+//     // P5.fill(0); 
+//    //fft
+//     for (let i = 0; i < values.length; i++) {
+//       const amplitude = values[i] as number;
+   
+   
+//       const barHeight = P5.map(amplitude, -100, 0, height, 0); // Adjust mapping based on your needs
+
+//       const blueShade = P5.map(barHeight, 0, height, 255, 0); // Map the height to a shade of blue
+
+//       const c = P5.color(0, blueShade, blueShade);
+
+//       P5.fill(c);
+//       P5.stroke(c);
+
+
+//       // P5.fill(0, blueShade, blueShade);
+//       // P5.stroke(0, blueShade, blueShade);
+     
+//       // P5.rect(i * barWidth, 0, barWidth - 1, barHeight);
+//       const x = i * barWidth;
+//       const y = height - barHeight;
+  
+//       P5.rect(x, y, barWidth - 1, barHeight);
+  
+//       // Apply animation effects (example: scaling)
+//       const scaleFactor = 1 + 0.1 * Math.sin(P5.frameCount * 0.1);
+//       P5.scale(scaleFactor);
+  
+//       // Reset scaling for subsequent rectangles
+//       P5.scale(1 / scaleFactor);
+    
+    
+      
+//     }
+
+//     P5.endShape();
+//   }
+
+// );
+
 export const Ruxue_FFT = new Visualizer(
   'Ruxue_FFT',
   (P5: P5, analyzers: {waveform: Tone.Analyser;fft:Tone.Analyser}) => {
 
-
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
-  
+
     const dim = Math.min(width, height);
 
-    // P5.background(0, 0, 0, 255);
-
     P5.strokeWeight(dim * 0.01);
-  
-    const values = analyzers.fft.getValue();
 
-  
+    const values = analyzers.fft.getValue();
+    // console.log(values);
 
     P5.beginShape();
 
-  
     const barWidth = width / values.length;
-    // P5.fill(0); 
-   //fft
+
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;
-   
-   
-      const barHeight = P5.map(amplitude, -100, 0, height, 0); // Adjust mapping based on your needs
 
-      const blueShade = P5.map(barHeight, 0, height, 255, 0); // Map the height to a shade of blue
+      const barHeight = P5.map(amplitude, -100, 0, height, 0);
+
+      const blueShade = P5.map(barHeight, 0, height, 255, 0);
 
       const c = P5.color(0, blueShade, blueShade);
 
       P5.fill(c);
       P5.stroke(c);
 
-
-      // P5.fill(0, blueShade, blueShade);
-      // P5.stroke(0, blueShade, blueShade);
-     
-      // P5.rect(i * barWidth, 0, barWidth - 1, barHeight);
       const x = i * barWidth;
       const y = height - barHeight;
-  
-      P5.rect(x, y, barWidth - 1, barHeight);
-  
-      // Apply animation effects (example: scaling)
-      const scaleFactor = 1 + 0.1 * Math.sin(P5.frameCount * 0.1);
-      P5.scale(scaleFactor);
-  
+
+      // Apply animation effects (create a wave-like animation)
+      const waveOffset = 10 * Math.sin(P5.frameCount * 0.05); // Adjust the parameters for the desired effect
+      const waveHeight = 10 * Math.sin((i + P5.frameCount) * 0.1); // Adjust the parameters for the desired effect
+
+      P5.rect(x, y + waveHeight + waveOffset, barWidth - 1, barHeight - waveHeight);
+
       // Reset scaling for subsequent rectangles
-      P5.scale(1 / scaleFactor);
-    
-    
-      
+      P5.scale(1);
     }
 
     P5.endShape();
   }
-
 );
+
 

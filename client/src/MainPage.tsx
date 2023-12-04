@@ -107,11 +107,12 @@ function ShowWelcomePanel(): JSX.Element {
     >
       <div className="mw6 lh-copy mb4 white">
         <Music32 />
-        <div className="f3 fw7 mb2">Welcome to the case study.</div>
-        <div className="f4 mb3">
-          Select an instrument and a visualizer on the left to serve some fresh beats.
+        <div className="f3 fw7 mb2" style={{fontFamily: 'Arial Black' }}>Welcome to the final project of CSC-600!!! </div>
+        <div className="f4 mb3" style={{fontFamily: 'Arial Black' }}>
+        Hello from Team 009!!!
+          
         </div>
-        <div className="f5">The UI is yours to design. Express yourself.</div>
+        <div className="f5" style={{fontFamily: 'Arial Black' }}> Select an instrument and a visualizer on the left and have fun!!!</div>
       </div>
     </div>
   );
@@ -130,7 +131,7 @@ function InstrumentAndVisualizerPanel({ state, dispatch }: PanelProps): JSX.Elem
   return (
     <div
       className="absolute right-0 bottom-0 top-0 flex flex-column"
-      style={{ left: '16rem' }}
+      style={{ left: '16rem', backgroundColor: '#F5F5F5',  color: 'magenta', fontFamily:'MV Boli', fontWeight: 'bolder' }}
     >
       <VisualizerPanel state={state} dispatch={dispatch} />
       <InstrumentPanel state={state} dispatch={dispatch} />
@@ -147,6 +148,7 @@ function InstrumentPanel({ state, dispatch }: PanelProps): JSX.Element {
 
   return (
     <div>
+      
       {instrument && (
         <InstrumentContainer
           state={state}
@@ -165,7 +167,7 @@ function VisualizerPanel({ state }: PanelProps): JSX.Element {
   const visualizer = state.get('visualizer');
 
   return (
-    <div>
+    <div > 
       {visualizer && (
         <VisualizerContainer key={visualizer.name} visualizer={visualizer} />
       )}
