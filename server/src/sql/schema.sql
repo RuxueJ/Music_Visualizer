@@ -18,6 +18,7 @@ CREATE TABLE songs (
 INSERT INTO songs (id, titleSong, notes, instrument, imageLink, author, genre, releaseDate) 
 VALUES 
 (1, 'Ode to Joys', 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4 D4', 'piano', './image/id_1.PNG', 'CSC 600', 'Dubstep Remix', '2023'),
-(2, 'Twinkle Little Star', 'C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5 G5 G5 F5 F5 E5 E5 D5 G5 G5 F5 F5 E5 E5 D5 C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5', 'Xylephone', './image/id_1.PNG', 'Team 009', 'Kid Song', '2023'),
-(3, 'Testing123...', 'D5 E4 E4 D5 D4', 'piano', './image/id_1.PNG', 'test', 'test', 'test'),
-(4, 'Guitar test', 'E_note E_note A_note A_note D_note D_note', 'Electric_Guitar', './image/id_1.PNG', 'Kao Saephan', 'Test Song', '2023') ;
+(2, 'Twinkle Little Star', 'C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5 G5 G5 F5 F5 E5 E5 D5 G5 G5 F5 F5 E5 E5 D5 C5 C5 G5 G5 A5 A5 G5 F5 F5 E5 E5 D5 D5 C5', 'piano', './image/id_1.PNG', 'Team 009, Whoa!', 'Kids Songs', 'Dec 2023'),
+(3, 'Marys Little Lamb', 'E5 D5 C5 D5 E5 E5 E5 D5 D5 D5 E5 E5 E5 E5 D5 C5 D5 E5 E5 E5 E5 D5 D5 E5 D5 C5', 'piano', './image/id_1.PNG', 'Team 009 Yay!', 'Childrens Songs', 'Fall 2023'),
+(4, 'Row Row Your Boat', 'D5 D5 D5 E5 Gb5 Gb5 E5 Gb5 G5 A5 D5 D5 A5 A5 Gb5 Gb5 Gb5 D5 D5 A5 G5 Gb5 E5 D5', 'piano', './image/id_1.PNG', 'Team 009 Nice!', 'Toddler Songs', 'Nov 2023'),
+(5, 'I Love You, Barney', 'G5 E5 G5 G5 E5 G5 A5 G5 F5 E5 D5 E5 F5 E5 F5 G5 C5 C5 C5 C5 C5 D5 E5 F5 G5 G5 D5 D5 F5 E5 D5 C5', 'piano', './image/id_1.PNG', 'Team 009 Wow!', 'Barney Songs', 'Oct 2023');
