@@ -12,6 +12,7 @@ export const QCVisualizer = new Visualizer(
       const width = window.innerWidth/2.5;
       const height = window.innerHeight/4;
   
+      
       p5.background(0, 0, 0, 255);  //background color    
       p5.translate(width,height)
       p5.angleMode(p5.DEGREES);
@@ -19,17 +20,17 @@ export const QCVisualizer = new Visualizer(
       p5.noFill();    //fill the color while the thread moves
   
       const values = analyzers.waveform.getValue();
-  
+      const fft = analyzers.fft.getValue();
       p5.beginShape();  //reset thread
-      
       for (let i = 0; i < values.length; i++) {
         
         const amplitude = values[i] as number;
+        const frequency = fft[i] as number; 
         const r = p5.map(amplitude, -1, 1, 0, 100+i);
-  
-        const rgb1 = p5.map(Math.cos(r), -1, 1, 0, 255);
-        const rgb2 = p5.map(Math.sin(r), -1, 1, 0, 255);
-        const rgb3 = p5.map(r,  0, 100+i, 0, 255);
+        const c = p5.map(frequency, -1000,0, 0, 180);
+        const rgb1 = p5.map(Math.cos(c), -1, 1, 0, 255);
+        const rgb2 = p5.map(Math.sin(c), -1, 1, 0, 255);
+        const rgb3 = p5.map(c,  -1000,0, 0, 255);
   
         p5.fill(rgb1, rgb2, rgb3); 
   
