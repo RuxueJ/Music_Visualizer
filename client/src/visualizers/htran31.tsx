@@ -40,7 +40,7 @@ export const HoangAnh_Visualizer = new Visualizer(
     p5.endShape();
   
     setTimeout(() => {
-      p5.clear();
+      p5.clear(0, 0, 0, 0);
     }, 100);
     console.log(`Frequency bin now}: ${values}`);
   }
@@ -73,7 +73,7 @@ export const HoangAnh_Visualizer2 = new Visualizer(
     p5.endShape();
 
     setTimeout(() => {
-      p5.clear();
+      p5.clear(0, 0, 0, 0);
     }, 100);
   }
 );

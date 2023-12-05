@@ -100,14 +100,14 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
       </div>
       <ClockNav currentTime={currentTime} />
       
-      <div className="pa3">
+      {/* <div className="pa3">
         <input
           type="text"
           placeholder="Search..."
           className="w-100 pa2 ba b--light-gray"
           onChange={(e) => console.log('Search term:', e.target.value)}
         />
-      </div>
+      </div> */}
 
       <div className="flex-auto">
         <InstrumentsNav state={state} dispatch={dispatch} />
