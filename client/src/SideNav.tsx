@@ -15,6 +15,7 @@ import { DispatchAction } from './Reducer';
 import { AppState } from './State';
 import { Instrument } from './Instruments';
 import { Visualizer } from './Visualizers';
+import { Music32 } from '@carbon/icons-react';
 import backgroundImage from './img/homepage_bg.jpg'; 
 
 /** ------------------------------------------------------------------------ **
@@ -95,10 +96,12 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
 
   return (
     <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column" style={{ color: '#083170', backgroundColor: '#F5F5F5'}} >
-      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray" style={{ color: 'green', fontFamily: 'MV Boli' }} >
-        Music App by Team 009
-      </div>
+      <div className="h-20 w-100" style={backgroundStyle}></div>
       <ClockNav currentTime={currentTime} />
+      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray h-5" style={{ color: 'black', fontFamily: 'MV Boli' }} >
+      <Music32 />Music App by Team 009
+      </div>
+      
       
       {/* <div className="pa3">
         <input
@@ -110,10 +113,11 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
       </div> */}
 
       <div className="flex-auto">
+        
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
-        <div className={'bg-black absolute bottom-0 right-0 left-0 h-20'} style={backgroundStyle}></div>
+        
       </div>
     </div>
   );
@@ -142,7 +146,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   const location = useLocation();
   
   return (
-    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
+    <div style={{color: 'green', fontFamily:'MV Boli', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
     <Section title="Instruments" >
 
       {instruments.map(i => (
@@ -179,7 +183,7 @@ function VisualizersNav({ state }: SideNavProps): JSX.Element {
   const location = useLocation();
 
   return (
-    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
+    <div style={{color: 'green', fontFamily:'MV Boli',  border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
     <Section title="Visualizers">
       {visualizers.map(v => (
         <RadioButton
@@ -231,12 +235,12 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   
 
   return (
-    <div style={{color: 'blue', fontFamily:'MV Boli', fontWeight: 'bolder', border: '1px solid rgba(128, 128, 128, 1)', borderTopRightRadius: 10,  borderBottomRightRadius: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}>
+    <div style={{color: 'green', fontFamily:'MV Boli',  border: '1px solid rgba(128, 128, 128, 1)'}}>
       <Section title="Playlists">
       <div>
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search"
             className="w-100 pa2 ba b--light-gray"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -259,13 +263,13 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
               ))}
             onMouseEnter={() => setHoveredSong(song)}
             onMouseLeave={() => setHoveredSong(null)}
-            style={{ position: 'relative' ,color: 'black', fontFamily:'MV Boli', fontWeight: 'bolder'}}
+            style={{ position: 'relative' ,color: 'black', fontFamily:'MV Boli'}}
             
           >
           
             <Music20 className="mr1" />
             {hoveredSong === song ? (
-              <div className="h3" style={{ background: "white", color:'purple' }}>
+              <div className="h3" style={{ background: "white", color:'blue' }}>
                 <div>{`Song: ${song.get('titleSong')}`}</div>
                 <div>{`Genre: ${song.get('genre')}`}</div>
                 <div>{`Author: ${song.get('author')}`}</div>
@@ -289,7 +293,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
 // Clock Function
 function ClockNav({ currentTime }: { currentTime: string }): JSX.Element {
   return (
-    <div className="f6 flex items-center black justify-center pa3">
+    <div className="f6 flex items-center black justify-center pa3 h-5">
       <div className="dim" style={{ fontSize: '1.5rem' }}>{currentTime}</div>
     </div>
   );

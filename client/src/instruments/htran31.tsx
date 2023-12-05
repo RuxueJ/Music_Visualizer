@@ -27,10 +27,7 @@ export function Xylophone(props: InstrumentProps) {
   }, [setSynth]);
 
   return (
-    <div 
-    className="bg-bluish-black"
-    
-    >
+    <div className="bg-bluish-black">
       <div className="xylophone">
         {notes.map((note) => (
           <div
