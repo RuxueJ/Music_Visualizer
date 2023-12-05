@@ -243,7 +243,12 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
           />
         </div>
         {songs
-          .filter((song) => song.get('titleSong').toLowerCase().includes(searchTerm.toLowerCase()) )
+          .filter((song) => 
+            song.get('titleSong').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.get('genre').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.get('author').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.get('releaseDate').toLowerCase().includes(searchTerm.toLowerCase())
+            )
           .map(song => (
           <div
             key={song.get('id')}
